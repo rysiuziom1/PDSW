@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("api/v1/student")
 @RestController
 public class StudentController {
 
@@ -46,5 +45,10 @@ public class StudentController {
     @GetMapping("/get")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
+    }
+
+    @RequestMapping("api/v1/")
+    public String login() {
+        return "login";
     }
 }
