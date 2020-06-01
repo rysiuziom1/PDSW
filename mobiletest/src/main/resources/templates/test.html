@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <title>Mobilne Kolokwium</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+</head>
+
+<body class="default-color-dark">
+    <div class="container-fluid">
+        <form class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
+            <div class="form-row">
+                <div class="col">
+                    <img src="content/logo.png" class="img-fluid" alt="Logo image">
+                </div>
+            </div>
+            <h2 class="white-text black text-center pt-4 pb-4 col-10 mx-auto">Imię Nazwisko 123456</h2>
+            <h2 class="white-text red darken-4 text-center pt-4 pb-4 col-10 mx-auto">Pozostało: 90:00</h2>
+            <div class="text-center">
+                <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text">Pobierz plik</button>
+                <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text">Dodaj czas</button>
+            </div>
+            <div class="col-10 mx-auto">
+                <div class="form-group row">
+                    <div class="custom-file mt-3">
+                        <label class="custom-file-label" for="solutionsFolder">Dodaj plik</label>
+                        <input type="file" class="custom-file-input" webkitdirectory directory multiple
+                            id="solutionsFolder">
+                    </div>
+                </div>               
+            </div>
+
+            <ul class="list-group col-10 mx-auto pr-0">
+                <li class="list-group-item">zad1.zip</li>
+                <li class="list-group-item">zad2.zip</li>
+            </ul>
+            
+            <div class="text-center">
+                <button class="btn btn-deep-purple btn-md col-10 mx-auto mt-3">Wyślij</button>
+                <button class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text">Zakończ</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
