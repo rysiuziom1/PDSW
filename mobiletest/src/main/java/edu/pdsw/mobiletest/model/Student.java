@@ -10,6 +10,7 @@ public class Student {
     private final String firstName;
     private final String lastName;
     private double remainingTime;
+    private Exercise exercise;
 
     public Student(@JsonProperty("id") UUID id,
                    @JsonProperty("studentIndex") String studentIndex,
@@ -44,5 +45,13 @@ public class Student {
 
     public String getStudentIndex() {
         return studentIndex;
+    }
+
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 }
