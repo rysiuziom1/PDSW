@@ -2,24 +2,28 @@ document.getElementById('loginForm').addEventListener('submit', check);
 
 function check(event) {
     event.preventDefault();
-    const url = 'http://localhost:8080/student/kolokwium';
+    console.log("TEST");
+
     const urlEndPoint = 'http://localhost:8080/api/v1/student/add'
+
     const studentData = {
-        "studentIndex": document.getElementById('studentIndex'),
-        "firstName": document.getElementById('studentName'),
-        "lastName": document.getElementById('studentLastName')
+        "studentIndex": document.getElementById('studentIndex').value,
+        "firstName": document.getElementById('studentName').value,
+        "lastName": document.getElementById('studentLastName').value
     };
 
     const params = {
         headers : { "content-type" : "application/json; charset=UTF-8" },
-        body : studentData,
+        body : JSON.stringify(studentData),
         method : "POST",
         mode : "cors"
     };
 
     fetch(urlEndPoint, params).then(function (response) {
         if (response.ok) {
-            response.redirect(url, 200)
+            console.log("Response from API with code 200");
+        } else {
+            throw new Error("Could not reach the API: " + response.statusText);
         }
-    })
+    });
 }
