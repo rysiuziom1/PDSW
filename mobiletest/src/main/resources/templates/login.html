@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css">
     <!-- My CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -28,10 +29,10 @@
 
 <body class="default-color-dark">
     <div class="container-fluid">
-        <form id="loginForm" onsubmit="" class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
+        <form id="loginForm" class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
             <div class="form-row">
                 <div class="col">
-                    <img th:src="@{assets/logo.png}" class="img-fluid" alt="Logo image">
+                    <img th:src="@{/assets/logo.png}" class="img-fluid" alt="Logo image">
                 </div>
             </div>
             <div class="col-10 mx-auto">
@@ -51,6 +52,7 @@
             </div>
         </form>
     </div>
+    <script th:src="@{/js/login.js}"></script>
 </body>
 
 </html>
