@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/v1/student")
 public class StudentController {
 
     private final StudentService studentService;
@@ -45,10 +46,5 @@ public class StudentController {
     @GetMapping("/get")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
-    }
-
-    @RequestMapping("api/v1/")
-    public String login() {
-        return "login";
     }
 }
