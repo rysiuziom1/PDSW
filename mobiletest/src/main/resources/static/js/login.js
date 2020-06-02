@@ -5,6 +5,7 @@ function check(event) {
     console.log("TEST");
 
     const urlEndPoint = 'http://localhost:8080/api/v1/student/add'
+    const url = 'http://localhost:8080/login/student'
 
     const studentData = {
         "studentIndex": document.getElementById('studentIndex').value,
@@ -22,6 +23,9 @@ function check(event) {
     fetch(urlEndPoint, params).then(function (response) {
         if (response.ok) {
             console.log("Response from API with code 200");
+            $(document).ready(function () {
+                $.redirect(url, studentData);
+            });
         } else {
             throw new Error("Could not reach the API: " + response.statusText);
         }
