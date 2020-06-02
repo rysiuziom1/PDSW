@@ -35,6 +35,11 @@ public class KnowledgeTestDataAccessService implements KnowledgeTestDao {
     }
 
     @Override
+    public double getTotalTime() {
+        return KT.getTotalTestTime();
+    }
+
+    @Override
     public List<Exercise> getAllExercises() {
         return KT.getExercises();
     }

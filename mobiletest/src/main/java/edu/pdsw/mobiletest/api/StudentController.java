@@ -4,7 +4,9 @@ import edu.pdsw.mobiletest.model.Student;
 import edu.pdsw.mobiletest.service.KnowledgeTestService;
 import edu.pdsw.mobiletest.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,8 +26,13 @@ public class StudentController {
 
     @PostMapping("/add")
     public void addStudent(@RequestBody Student student) {
-        student.setExercise(knowledgeTestService.getRandomExercise());
-        studentService.addStudent(student);
+        try {
+            student.setExercise(knowledgeTestService.getRandomExercise());
+            student.setRemainingTime(knowledgeTestService.getTotalTime());
+            studentService.addStudent(student);
+        } catch (StudentService.StudentAlreadyExistsException ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        }
     }
     
     @PostMapping("/increase_time")
@@ -46,5 +53,10 @@ public class StudentController {
     @GetMapping("/get")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
+    }
+    
+    @GetMapping("/get_student")
+    public Student getStudentByIndex(@RequestParam("index") String studentIndex) {
+        return studentService.getStudentByIndex(studentIndex);
     }
 }

@@ -4,7 +4,9 @@ import edu.pdsw.mobiletest.model.Exercise;
 import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.service.KnowledgeTestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +23,11 @@ public class KnowledgeTestController {
     
     @PostMapping("/set")
     public void setTest(@RequestBody KnowledgeTest knowledgeTest) {
-        this.knowledgeTestService.setTest(knowledgeTest);
+        try {
+            this.knowledgeTestService.setTest(knowledgeTest);
+        } catch (KnowledgeTestService.EmptyDirectoryException ex) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        }
     }
     
     @GetMapping("/get")

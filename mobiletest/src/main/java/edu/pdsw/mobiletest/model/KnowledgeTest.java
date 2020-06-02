@@ -10,14 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class KnowledgeTest {
-    private final int totalTestTime;
+    private final double totalTestTime;
     private final String solutionsAbsolutePath;
     private final String exercisesAbsolutePath;
     private List<Exercise> exercises;
 
     private Logger logger = LoggerFactory.getLogger(KnowledgeTest.class);
 
-    public KnowledgeTest(@JsonProperty("totalTestTime") int totalTestTime,
+    public KnowledgeTest(@JsonProperty("totalTestTime") double totalTestTime,
                          @JsonProperty("solutionsAbsolutePath") String solutionsAbsolutePath,
                          @JsonProperty("exercisesAbsolutePath") String exercisesAbsolutePath) {
         this.totalTestTime = totalTestTime;
@@ -47,7 +47,7 @@ public class KnowledgeTest {
         logger.info("Exercises directory path: " + directory.getAbsolutePath());
     }
 
-    public int getTotalTestTime() {
+    public double getTotalTestTime() {
         return totalTestTime;
     }
 

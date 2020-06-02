@@ -11,6 +11,7 @@ public interface KnowledgeTestDao {
     KnowledgeTest getKnowledgeTest();
     Exercise getExercise(UUID exerciseID);
     Exercise getRandomExercise();
+    double getTotalTime();
 
     List<Exercise> getAllExercises();
 }
