@@ -14,7 +14,9 @@ public class StudentDataAccessService implements StudentDao {
 
     @Override
     public int insertStudent(UUID id, Student student) {
-        DB.add(student);
+        var newStudent = new Student(id, student.getStudentIndex(), student.getFirstName(), student.getLastName());
+        newStudent.setExercise(student.getExercise());
+        DB.add(newStudent);
         return 1;
     }
 
