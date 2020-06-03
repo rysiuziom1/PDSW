@@ -11,8 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("api/v1/student")
 @RestController
+@RequestMapping("api/v1/student")
 public class StudentController {
 
     private final StudentService studentService;
