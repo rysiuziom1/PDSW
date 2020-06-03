@@ -14,6 +14,8 @@ public interface StudentDao {
         UUID id = UUID.randomUUID();
         return insertStudent(id, student);
     }
-
+    
+    Student selectStudent(UUID uuid);
+    Student selectStudentByIndex(String studentIndex);
     List<Student> selectAllStudents();
 }

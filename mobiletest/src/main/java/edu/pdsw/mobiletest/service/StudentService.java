@@ -19,23 +19,42 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public int addStudent(Student student) {
-        return studentDao.insertStudent(student);
+    public int addStudent(Student student) throws StudentAlreadyExistsException {
+        if (getStudent(student.getStudentID()) == null && getStudentByIndex(student.getStudentIndex()) == null) {
+            return studentDao.insertStudent(student);
+        }
+        else {
+            throw new StudentAlreadyExistsException("Student already exist");
+        }
     }
-    
+
     public int increaseTime(UUID studentID) {
         return studentDao.increaseTime(studentID);
     }
-    
+
     public int decreaseTime(UUID studentID) {
         return studentDao.decreaseTime(studentID);
     }
-    
+
     public int finishTest(UUID studentID) {
         return studentDao.finishTest(studentID);
     }
 
+    public Student getStudent(UUID studentID) {
+        return studentDao.selectStudent(studentID);
+    }
+
+    public Student getStudentByIndex(String studentIndex) {
+        return studentDao.selectStudentByIndex(studentIndex);
+    }
+
     public List<Student> getAllStudents() {
         return studentDao.selectAllStudents();
+    }
+
+    public static class StudentAlreadyExistsException extends Exception {
+        public StudentAlreadyExistsException(String message) {
+            super(message);
+        }
     }
 }

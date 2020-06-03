@@ -16,24 +16,37 @@ public class KnowledgeTestService {
     public KnowledgeTestService(@Qualifier("testRep") KnowledgeTestDao knowledgeTestDao) {
         this.knowledgeTestDao = knowledgeTestDao;
     }
-    
-    public void setTest(KnowledgeTest knowledgeTest) {
+
+    public void setTest(KnowledgeTest knowledgeTest) throws EmptyDirectoryException {
+        if (knowledgeTest.getExercises() == null) {
+            throw new EmptyDirectoryException("Exercises directory cannot be empty");
+        }
         this.knowledgeTestDao.setKnowledgeTest(knowledgeTest);
     }
-    
+
     public KnowledgeTest getTest() {
         return this.knowledgeTestDao.getKnowledgeTest();
     }
-    
+
     public Exercise getExercise(UUID exerciseID) {
         return this.knowledgeTestDao.getExercise(exerciseID);
     }
-    
+
     public Exercise getRandomExercise() {
         return this.knowledgeTestDao.getRandomExercise();
     }
-    
+
     public List<Exercise> getAllExercises() {
         return this.knowledgeTestDao.getAllExercises();
+    }
+    
+    public double getTotalTime() {
+        return this.knowledgeTestDao.getTotalTime();
+    }
+
+    public static class EmptyDirectoryException extends Exception {
+        public EmptyDirectoryException(String message) {
+            super(message);
+        }
     }
 }
