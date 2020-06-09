@@ -1,8 +1,12 @@
 package edu.pdsw.mobiletest.api;
 
+import edu.pdsw.mobiletest.exceptions.NoTestException;
+import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
 import edu.pdsw.mobiletest.model.Student;
 import edu.pdsw.mobiletest.service.KnowledgeTestService;
 import edu.pdsw.mobiletest.service.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +21,8 @@ public class StudentController {
 
     private final StudentService studentService;
     private final KnowledgeTestService knowledgeTestService;
-    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     public StudentController(StudentService studentService, KnowledgeTestService knowledgeTestService) {
         this.studentService = studentService;
@@ -27,11 +32,22 @@ public class StudentController {
     @PostMapping("/add")
     public void addStudent(@RequestBody Student student) {
         try {
-            student.setExercise(knowledgeTestService.getRandomExercise());
+            var exercise = knowledgeTestService.getRandomExercise();
+            if (exercise == null)
+                throw new NoTestException("Test isn't already set");
+            student.setExercise(exercise);
             student.setRemainingTime(knowledgeTestService.getTotalTime());
             studentService.addStudent(student);
-        } catch (StudentService.StudentAlreadyExistsException ex) {
+            logger.info(String.format("Student [%s, %s, %s] successfully added.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
+        } catch (StudentAlreadyExistsException ex) {
+            logger.warn(String.format("Student [%s, %s, %s] already exists.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+        } catch (NoTestException e) {
+            logger.warn(String.format("Student [%s, %s, %s] can't be added, because test isn't set yet.",
+                    student.getFirstName(),
+                    student.getLastName(),
+                    student.getStudentIndex()));
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
     

@@ -1,8 +1,11 @@
 package edu.pdsw.mobiletest.api;
 
+import edu.pdsw.mobiletest.exceptions.DirectoryException;
 import edu.pdsw.mobiletest.model.Exercise;
 import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.service.KnowledgeTestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,8 @@ import java.util.UUID;
 @RestController
 public class KnowledgeTestController {
     private final KnowledgeTestService knowledgeTestService;
-    
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     public KnowledgeTestController(KnowledgeTestService knowledgeTestService) {
         this.knowledgeTestService = knowledgeTestService;
@@ -25,7 +29,9 @@ public class KnowledgeTestController {
     public void setTest(@RequestBody KnowledgeTest knowledgeTest) {
         try {
             this.knowledgeTestService.setTest(knowledgeTest);
-        } catch (KnowledgeTestService.EmptyDirectoryException ex) {
+            logger.info(String.format("%s added successfully.", this.knowledgeTestService.getExercisesPath()));
+        } catch (DirectoryException ex) {
+            logger.info(String.format("%s is not a directory or is empty.", this.knowledgeTestService.getExercisesPath()));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
         }
     }

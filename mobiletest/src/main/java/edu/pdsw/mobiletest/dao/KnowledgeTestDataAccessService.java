@@ -26,21 +26,36 @@ public class KnowledgeTestDataAccessService implements KnowledgeTestDao {
 
     @Override
     public Exercise getExercise(UUID exerciseID) {
+        if (KT == null)
+            return null;
         return KT.getExercises().stream().filter(ex -> exerciseID.equals(ex.getExerciseID())).findAny().orElse(null);
     }
 
     @Override
     public Exercise getRandomExercise() {
+        if (KT == null)
+            return null;
         return KT.getExercises().get(rand.nextInt(KT.getExercises().size()));
     }
 
     @Override
     public double getTotalTime() {
+        if (KT == null)
+            return 0.0;
         return KT.getTotalTestTime();
     }
 
     @Override
+    public String getExercisesDirectoryPath() {
+        if (KT == null)
+            return null;
+        return KT.getExercisesAbsolutePath();
+    }
+
+    @Override
     public List<Exercise> getAllExercises() {
+        if (KT == null)
+            return null;
         return KT.getExercises();
     }
 }
