@@ -25,10 +25,12 @@ public class TeacherController {
     public void setTeacher(@RequestBody TeacherContext teacherContext) {
         try {
             this.teacherService.setTeacher(teacherContext);
-            logger.info(String.format("Teacher [%s, %s] set successfully.", teacherContext.getTeacher(), teacherContext.getTeacher().getLastName()));
+            logger.info(String.format("Teacher [%s, %s] set successfully.",
+                    teacherContext.getTeacher().getFirstName(),
+                    teacherContext.getTeacher().getLastName()));
         } catch (WrongPasswordException ex) {
             logger.info(String.format("Teacher [%s, %s] can't be send due to passing wrong password.",
-		            teacherContext.getTeacher(),
+		            teacherContext.getTeacher().getFirstName(),
 		            teacherContext.getTeacher().getLastName()));
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex);
         }
