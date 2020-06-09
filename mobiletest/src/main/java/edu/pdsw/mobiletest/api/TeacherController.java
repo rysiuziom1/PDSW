@@ -1,9 +1,11 @@
 package edu.pdsw.mobiletest.api;
 
+import edu.pdsw.mobiletest.exceptions.WrongPasswordException;
 import edu.pdsw.mobiletest.model.Teacher;
 import edu.pdsw.mobiletest.service.TeacherService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.AccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 public class TeacherController {
     private final TeacherService teacherService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public TeacherController(TeacherService teacherService) {
@@ -22,7 +25,13 @@ public class TeacherController {
     public void setTeacher(@RequestBody TeacherContext teacherContext) {
         try {
             this.teacherService.setTeacher(teacherContext);
-        } catch (TeacherService.WrongPasswordException ex) {
+            logger.info(String.format("Teacher [%s, %s] set successfully.",
+                    teacherContext.getTeacher().getFirstName(),
+                    teacherContext.getTeacher().getLastName()));
+        } catch (WrongPasswordException ex) {
+            logger.info(String.format("Teacher [%s, %s] can't be send due to passing wrong password.",
+		            teacherContext.getTeacher().getFirstName(),
+		            teacherContext.getTeacher().getLastName()));
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage(), ex);
         }
     }

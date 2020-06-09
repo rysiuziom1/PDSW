@@ -1,6 +1,7 @@
 package edu.pdsw.mobiletest.service;
 
 import edu.pdsw.mobiletest.dao.StudentDao;
+import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
 import edu.pdsw.mobiletest.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,9 +53,4 @@ public class StudentService {
         return studentDao.selectAllStudents();
     }
 
-    public static class StudentAlreadyExistsException extends Exception {
-        public StudentAlreadyExistsException(String message) {
-            super(message);
-        }
-    }
 }

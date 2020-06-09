@@ -29,12 +29,12 @@ public class KnowledgeTest {
     private void createExerciseList() {
         File directory = new File(this.exercisesAbsolutePath);
         if (!directory.isDirectory()) {
-           logger.warn(directory.getAbsolutePath() + " is not directory");
+//           logger.warn(directory.getAbsolutePath() + " is not directory");
             return;
         }
         var arrayOfFiles = directory.listFiles();
         if (arrayOfFiles == null) {
-            logger.warn(directory.getAbsolutePath() + " is empty directory");
+//            logger.warn(directory.getAbsolutePath() + " is empty directory");
             return;
         }
         exercises = new ArrayList<>();
@@ -44,7 +44,7 @@ public class KnowledgeTest {
                 exercises.add(new Exercise(ex.getAbsolutePath()));
             }
         });
-        logger.info("Exercises directory path: " + directory.getAbsolutePath());
+//        logger.info("Exercises directory path: " + directory.getAbsolutePath());
     }
 
     public double getTotalTestTime() {

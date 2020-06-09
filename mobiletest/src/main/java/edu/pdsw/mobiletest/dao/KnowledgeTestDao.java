@@ -12,6 +12,7 @@ public interface KnowledgeTestDao {
     Exercise getExercise(UUID exerciseID);
     Exercise getRandomExercise();
     double getTotalTime();
+    String getExercisesDirectoryPath();
 
     List<Exercise> getAllExercises();
 }
