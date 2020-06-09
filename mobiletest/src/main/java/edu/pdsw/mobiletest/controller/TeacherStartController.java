@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class TeacherStartController {
-    @GetMapping("/index")
+    @GetMapping("/teacher")
     public String index() {
-        return "index";
+        return "teacher";
     }
 }
