@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,7 +31,7 @@ public class StudentController {
     }
 
     @PostMapping("/add")
-    public void addStudent(@RequestBody Student student) {
+    public ResponseEntity<String> addStudent(@RequestBody Student student) {
         try {
             var exercise = knowledgeTestService.getRandomExercise();
             if (exercise == null)
@@ -49,6 +50,8 @@ public class StudentController {
                     student.getStudentIndex()));
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
+
+        return new ResponseEntity<>("http://localhost:8080/login/student?firstName=" + student.getFirstName() + "&lastName=" + student.getLastName() + "&index=" + student.getStudentIndex(), HttpStatus.OK);
     }
     
     @PostMapping("/increase_time")
