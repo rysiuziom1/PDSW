@@ -2,6 +2,7 @@ package edu.pdsw.mobiletest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -15,8 +16,7 @@ import java.util.Map;
 public class StudentTestController {
     @GetMapping("/student")
     public String test(@RequestParam Map<String, String> parameters, HttpServletRequest request) {
-        if ((parameters.get("index") == null || parameters.get("firstName") == null || parameters.get("lastName") == null) 
-                && request.getSession().getAttribute("studentIndex") == null) {
+        if (parameters.get("index") == null && request.getSession().getAttribute("studentIndex") == null) {
             return "redirect:/";
         } else if (request.getSession().getAttribute("studentIndex") == null) {
             var index = parameters.get("index");

@@ -23,6 +23,7 @@ function check(event) {
     fetch(urlEndPoint, params).then(function (response) {
         if (response.ok) {
             console.log("Response from API with code 200");
+            sessionStorage.setItem("studentIndex", studentData.studentIndex);
             console.log(response.text().then(value => {
                 window.location.href = value;
             }))
