@@ -79,3 +79,8 @@ a.bg-secondary-variant:focus, a.bg-secondary-variant:hover, button.bg-secondary-
 .text-error {
     color: #ffffff!important;
 }
+tr.align-middle>th,
+tr.align-middle>td {
+    vertical-align: middle!important;
+    text-align: center;
+}
