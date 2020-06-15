@@ -3,3 +3,6 @@ tr.align-middle>td {
     vertical-align: middle!important;
     text-align: center;
 }
+html, body {
+    height: 100%;
+}
