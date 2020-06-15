@@ -68,4 +68,16 @@ public class StudentDataAccessService implements StudentDao {
     public List<Student> selectAllStudents() {
         return DB;
     }
+
+    @Override
+    public int updateTime(double seconds) {
+        DB.forEach(student -> {
+            if (student.getRemainingTime() > 0) {
+                student.setRemainingTime(student.getRemainingTime() + (seconds * (1. / 60.)));
+            } else if (student.getRemainingTime() < 0) {
+                student.setRemainingTime(0.0);
+            }
+        });
+        return 1;
+    }
 }

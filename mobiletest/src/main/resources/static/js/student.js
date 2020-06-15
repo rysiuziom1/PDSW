@@ -10,7 +10,10 @@ $(document).ready(function () {
         .then(response => response.json())
         .then(data => {
             $('#studentData').text(data.firstName + ' ' + data.lastName + ' ' + data.studentIndex);
-            $('#time').text(data.remainingTime);
+            var remainingTime = data.remainingTime
+            var minutes = Math.floor(remainingTime)
+            var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
+            $('#time').text(minutes + ':' + seconds);
             localStorage.setItem("studentUUID", data.studentID);
         });
 
@@ -31,4 +34,17 @@ function finishTest() {
                 localStorage.clear();
             }
         })
+}
+
+function getRemainingTime() {
+    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
+
+    fetch(urlEndPoint)
+        .then(response => response.json())
+        .then(data => {
+            var remainingTime = data.remainingTime
+            var minutes = Math.floor(remainingTime)
+            var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
+            $('#time').text(minutes + ':' + seconds);
+        });
 }
