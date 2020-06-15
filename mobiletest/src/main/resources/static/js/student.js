@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const queryString = window.location.search;
-    const urlParametrs = new URLSearchParams(queryString)
+    const urlParameters = new URLSearchParams(queryString)
 
-    $('#studentData').text(urlParametrs.get('firstName') + ' ' + urlParametrs.get('lastName') + ' ' + urlParametrs.get('index'))
+    $('#studentData').text(urlParameters.get('firstName') + ' ' + urlParameters.get('lastName') + ' ' + sessionStorage.getItem('studentIndex'))
 
 });

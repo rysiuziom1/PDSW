@@ -42,7 +42,7 @@ public class StudentController {
             logger.info(String.format("Student [%s, %s, %s] successfully added.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
         } catch (StudentAlreadyExistsException ex) {
             logger.warn(String.format("Student [%s, %s, %s] already exists.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+            throw new ResponseStatusException(HttpStatus.OK, ex.getMessage(), ex);
         } catch (NoTestException e) {
             logger.warn(String.format("Student [%s, %s, %s] can't be added, because test isn't set yet.",
                     student.getFirstName(),
@@ -51,7 +51,7 @@ public class StudentController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
 
-        return new ResponseEntity<>("http://localhost:8080/login/student?firstName=" + student.getFirstName() + "&lastName=" + student.getLastName() + "&index=" + student.getStudentIndex(), HttpStatus.OK);
+        return new ResponseEntity<>("student?firstName=" + student.getFirstName() + "&lastName=" + student.getLastName() + "&index=" + student.getStudentIndex(), HttpStatus.OK);
     }
     
     @PostMapping("/increase_time")
