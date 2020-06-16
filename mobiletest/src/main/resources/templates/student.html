@@ -26,16 +26,22 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
 </head>
 
+<script>
+    window.setInterval(function(){
+        getRemainingTime();
+    }, 1000);
+</script>
+
 <body class="default-color-dark">
     <div class="container-fluid">
         <form class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
             <div class="form-row">
                 <div class="col">
-                    <img th:src="@{assets/logo.png}" class="img-fluid" alt="Logo image">
+                    <img th:src="@{/assets/logo.png}" class="img-fluid" alt="Logo image">
                 </div>
             </div>
-            <h2 class="white-text black text-center pt-4 pb-4 col-10 mx-auto">Imię Nazwisko 123456</h2>
-            <h2 class="white-text red darken-4 text-center pt-4 pb-4 col-10 mx-auto">Pozostało: 90:00</h2>
+            <h2 id="studentData" class="white-text black text-center pt-4 pb-4 col-10 mx-auto"></h2>
+            <h2 class="white-text red darken-4 text-center pt-4 pb-4 col-10 mx-auto">Pozostało: <span id="time"></span></h2>
             <div class="text-center">
                 <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text">Pobierz plik</button>
                 <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text">Dodaj czas</button>
@@ -57,10 +63,10 @@
             
             <div class="text-center">
                 <button class="btn btn-deep-purple btn-md col-10 mx-auto mt-3">Wyślij</button>
-                <button class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text">Zakończ</button>
+                <button class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text" onclick="finishTest()">Zakończ</button>
             </div>
         </form>
     </div>
 </body>
-
+<script th:src="@{js/student.js}"></script>
 </html>

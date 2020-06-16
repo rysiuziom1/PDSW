@@ -3,8 +3,11 @@ package edu.pdsw.mobiletest.service;
 import edu.pdsw.mobiletest.dao.StudentDao;
 import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
 import edu.pdsw.mobiletest.model.Student;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,6 +54,10 @@ public class StudentService {
 
     public List<Student> getAllStudents() {
         return studentDao.selectAllStudents();
+    }
+    
+    public int updateTime(double seconds) {
+        return studentDao.updateTime(seconds);
     }
 
 }

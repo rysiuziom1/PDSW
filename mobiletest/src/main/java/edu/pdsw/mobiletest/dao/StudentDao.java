@@ -18,4 +18,5 @@ public interface StudentDao {
     Student selectStudent(UUID uuid);
     Student selectStudentByIndex(String studentIndex);
     List<Student> selectAllStudents();
+    int updateTime(double seconds);
 }

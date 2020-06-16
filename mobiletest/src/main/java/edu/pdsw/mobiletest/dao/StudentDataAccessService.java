@@ -15,7 +15,7 @@ public class StudentDataAccessService implements StudentDao {
     @Override
     public int insertStudent(UUID id, Student student) {
         var newStudent = new Student(id, student.getStudentIndex(), student.getFirstName(), student.getLastName());
-        newStudent.setExercise(student.getExercise());
+        newStudent.setExerciseID(student.getExerciseID());
         newStudent.setRemainingTime(student.getRemainingTime());
         DB.add(newStudent);
         return 1;
@@ -67,5 +67,17 @@ public class StudentDataAccessService implements StudentDao {
     @Override
     public List<Student> selectAllStudents() {
         return DB;
+    }
+
+    @Override
+    public int updateTime(double seconds) {
+        DB.forEach(student -> {
+            if (student.getRemainingTime() > 0) {
+                student.setRemainingTime(student.getRemainingTime() + (seconds * (1. / 60.)));
+            } else if (student.getRemainingTime() < 0) {
+                student.setRemainingTime(0.0);
+            }
+        });
+        return 1;
     }
 }

@@ -14,11 +14,14 @@ function loadList(){
       .then(response => response.json())
       .then(data => {
             for(var item of data){
+                var remainingTime = Math.abs(item.remainingTime);
+                var minutes = Math.floor(remainingTime);
+                var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
             markup=markup+`
                 <tr class="align-middle">
                     <th scope="row">${item.firstName} ${item.lastName}</th>
                     <td>${item.studentIndex}</td>
-                    <td>${item.remainingTime}</td>
+                    <td>${minutes}:${seconds}</td>
                     <td>
                         <button class="btn btn-md btn-green">+5</button>
                         <button class="btn btn-md btn-red">-5</button>
