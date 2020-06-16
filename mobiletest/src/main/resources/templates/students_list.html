@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
+<head>
+    <title>Mobilne Kolokwium</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+</head>
+
+
+
+
+<script type="text/javascript" th:src="@{/js/list.js}"></script>
+
+<script>
+window.setInterval(function(){
+  loadList();
+}, 1000);
+</script>
+
+<body class="default-color-dark h-100 py-5">
+    <img th:src="@{assets/logo.png}" class="fixed-top" height="10%">
+    <div class="container h-100 py-5">
+        <div class="row h-100 mx-auto">
+            <div class="col my-auto">
+
+                <table  class="table table-striped table-hover grey lighten-2">
+                    <thead class="text-center default-color white-text">
+                        <th scope="col">Imię i nazwisko</th>
+                        <th scope="col">Indeks</th>
+                        <th scope="col">Pozostały czas</th>
+                        <th scope="col" style="width: 25%;">Akcje</th>
+                        <th scope="col">Status</th>
+                        <th></th>
+                    </thead>
+                    <tbody id="tab">
+                        <tr class="align-middle">
+                         <td colspan="6..">Loading..</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <button class="btn btn-danger btn-lg mx-auto" data-toggle="modal" data-target="#endCorfim">Zakończ kolokwium</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="endCorfim" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content default-color white-text">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Potwierdź zakończenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Jesteś pewien, że chcesz zakończyć kolokwium?
+                </div>
+                <div class="modal-footer">
+                    <a href="index.html"><button type="button" class="btn btn-outline-deep-purple">Tak</button></a>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Nie</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
