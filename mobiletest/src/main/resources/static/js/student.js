@@ -31,15 +31,24 @@ function finishTest() {
         })
 }
 
+function sendFile() {
+    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
+    const input = document.getElementById('fileInput');
+
+    const upload = (file) => {
+        fetch()
+    }
+}
+
 function getRemainingTime() {
     const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
 
     fetch(urlEndPoint)
         .then(response => response.json())
         .then(data => {
-            var remainingTime = data.remainingTime
-            var minutes = Math.floor(remainingTime)
-            var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
+            let remainingTime = data.remainingTime;
+            let minutes = Math.floor(remainingTime);
+            let seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
             $('#time').text(minutes + ':' + seconds);
         });
 }
