@@ -49,9 +49,9 @@
             <div class="col-10 mx-auto">
                 <div class="form-group row">
                     <div class="custom-file mt-3">
-                        <label class="custom-file-label" for="solutionsFolder">Dodaj plik</label>
-                        <input type="file" class="custom-file-input" accept=".zip,.rar,.7zip"
-                            id="solutionsFolder">
+                        <label class="custom-file-label" for="solutionFile">Dodaj plik</label>
+                        <input th:id="fileInput" type="file" class="custom-file-input" accept=".zip,.rar,.7zip"
+                               id="solutionFile">
                     </div>
                 </div>               
             </div>
@@ -63,7 +63,7 @@
             
             <div class="text-center">
                 <button class="btn btn-deep-purple btn-md col-10 mx-auto mt-3">Wyślij</button>
-                <button class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text" onclick="finishTest()">Zakończ</button>
+                <button th:onclick="sendFile()" class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text" onclick="finishTest()">Zakończ</button>
             </div>
         </form>
     </div>
