@@ -1,18 +1,13 @@
 $(document).ready(function () {
-    // const queryString = window.location.search;
-    // const urlParameters = new URLSearchParams(queryString)
-    //
-    // $('#studentData').text(urlParameters.get('firstName') + ' ' + urlParameters.get('lastName') + ' ' + sessionStorage.getItem('studentIndex'))
-
     const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
 
     fetch(urlEndPoint)
         .then(response => response.json())
         .then(data => {
             $('#studentData').text(data.firstName + ' ' + data.lastName + ' ' + data.studentIndex);
-            var remainingTime = data.remainingTime
-            var minutes = Math.floor(remainingTime)
-            var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
+            let remainingTime = data.remainingTime;
+            let minutes = Math.floor(remainingTime);
+            let seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
             $('#time').text(minutes + ':' + seconds);
             localStorage.setItem("studentUUID", data.studentID);
         });

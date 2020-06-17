@@ -19,6 +19,13 @@
 </head>
 
 <body class="default-color-dark">
+    <div id="danger-alert" class="alert alert-dark collapse alert-dismissible fade show" role="alert" style="position: absolute; width: 100%;">
+        <strong>Error!</strong> Prowadzący nie dodał jeszcze pliku z kolokwium.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <div class="container-fluid">
         <form id="loginForm" class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
             <div class="form-row">
@@ -52,6 +59,8 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
     <script th:src="@{/js/login.js}"></script>
+
+
 </body>
 
 </html>
