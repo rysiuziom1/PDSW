@@ -1,6 +1,8 @@
 package edu.pdsw.mobiletest.dao;
 
+import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.model.Student;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,4 +22,5 @@ public interface StudentDao {
     Student selectStudentByIndex(String studentIndex);
     List<Student> selectAllStudents();
     int updateTime(double seconds);
+    void saveStudentFile(UUID uuid, MultipartFile file, KnowledgeTest knowledgeTest);
 }

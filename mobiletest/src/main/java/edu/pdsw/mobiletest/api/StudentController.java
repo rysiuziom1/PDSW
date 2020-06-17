@@ -2,6 +2,7 @@ package edu.pdsw.mobiletest.api;
 
 import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
+import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.model.Student;
 import edu.pdsw.mobiletest.service.KnowledgeTestService;
 import edu.pdsw.mobiletest.service.StudentService;
@@ -11,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,5 +87,10 @@ public class StudentController {
     @GetMapping("/get_student")
     public Student getStudentByIndex(@RequestParam("index") String studentIndex) {
         return studentService.getStudentByIndex(studentIndex);
+    }
+
+    @PostMapping("/upload_file")
+    public void handleFileUpload(@RequestBody UUID studentID, @RequestParam("file") MultipartFile file, @ModelAttribute("knowledgeTest") KnowledgeTest knowledgeTest) {
+        studentService.saveStudentFile(studentID, file, knowledgeTest);
     }
 }

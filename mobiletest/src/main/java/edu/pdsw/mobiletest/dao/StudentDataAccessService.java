@@ -1,8 +1,14 @@
 package edu.pdsw.mobiletest.dao;
 
+import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.model.Student;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -86,5 +92,21 @@ public class StudentDataAccessService implements StudentDao {
             }
         });
         return 1;
+    }
+
+    @Override
+    public void saveStudentFile(UUID studentID, MultipartFile file, KnowledgeTest knowledgeTest) {
+        var student = DB.stream().filter(s -> studentID.equals(s.getStudentID())).findAny().orElse(null);
+
+        Path directoryPath = Paths.get(
+                knowledgeTest.getSolutionsAbsolutePath() + "/" + student.getFirstName() + "_" +
+                        student.getLastName() + "_" + student.getStudentIndex()
+        );
+
+        try {
+            Files.copy(file.getInputStream(), directoryPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
     }
 }
