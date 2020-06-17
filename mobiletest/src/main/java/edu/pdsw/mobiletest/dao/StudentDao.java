@@ -10,6 +10,7 @@ public interface StudentDao {
     int increaseTime(UUID uuid);
     int decreaseTime(UUID uuid);
     int finishTest(UUID uuid);
+    void finishAllStudentsTest();
     default int insertStudent(Student student) {
         UUID id = UUID.randomUUID();
         return insertStudent(id, student);

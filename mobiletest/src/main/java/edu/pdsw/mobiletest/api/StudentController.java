@@ -72,7 +72,10 @@ public class StudentController {
         studentService.finishTest(studentID);
         request.getSession().removeAttribute("studentIndex");
     }
-    
+    @PostMapping("/finish_tests")
+    public void finishAllStudentsTests(){
+        studentService.finishAllStudentsTests();
+    }
     @GetMapping("/get")
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
