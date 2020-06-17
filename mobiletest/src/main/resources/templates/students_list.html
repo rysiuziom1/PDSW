@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org" class="h-100">
 
@@ -23,6 +24,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous"></script>
 </head>
 
 
@@ -37,51 +42,51 @@ window.setInterval(function(){
 </script>
 
 <body class="default-color-dark h-100 py-5">
-    <img th:src="@{assets/logo.png}" class="fixed-top" height="10%">
-    <div class="container h-100 py-5">
-        <div class="row h-100 mx-auto">
-            <div class="col my-auto">
+<img th:src="@{assets/logo.png}" class="fixed-top" height="10%">
+<div class="container h-100 py-5">
+    <div class="row h-100 mx-auto">
+        <div class="col my-auto">
 
-                <table  class="table table-striped table-hover grey lighten-2">
-                    <thead class="text-center default-color white-text">
-                        <th scope="col">Imię i nazwisko</th>
-                        <th scope="col">Indeks</th>
-                        <th scope="col">Pozostały czas</th>
-                        <th scope="col" style="width: 25%;">Akcje</th>
-                        <th scope="col">Status</th>
-                        <th></th>
-                    </thead>
-                    <tbody id="tab">
-                        <tr class="align-middle">
-                         <td colspan="6..">Loading..</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <button class="btn btn-danger btn-lg mx-auto" data-toggle="modal" data-target="#endCorfim">Zakończ kolokwium</button>
-                </div>
+            <table  class="table table-striped table-hover grey lighten-2">
+                <thead class="text-center default-color white-text">
+                <th scope="col">Imię i nazwisko</th>
+                <th scope="col">Indeks</th>
+                <th scope="col">Pozostały czas</th>
+                <th scope="col" style="width: 25%;">Akcje</th>
+                <th scope="col">Status</th>
+                <th></th>
+                </thead>
+                <tbody id="tab">
+                <tr class="align-middle">
+                    <td colspan="6..">Loading..</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <button class="btn btn-danger btn-lg mx-auto" data-toggle="modal" data-target="#endCorfim">Zakończ kolokwium</button>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="endCorfim" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content default-color white-text">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Potwierdź zakończenie</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Jesteś pewien, że chcesz zakończyć kolokwium?
-                </div>
-                <div class="modal-footer">
-                    <a href="index.html"><button type="button" class="btn btn-outline-deep-purple">Tak</button></a>
-                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Nie</button>
-                </div>
+</div>
+<div class="modal fade" id="endCorfim" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Potwierdź zakończenie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Jesteś pewien, że chcesz zakończyć kolokwium?
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="finishTests()" class="btn btn-outline-deep-purple" data-dismiss="modal">Tak</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Nie</button>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>

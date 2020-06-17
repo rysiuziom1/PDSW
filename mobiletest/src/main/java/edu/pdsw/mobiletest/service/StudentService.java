@@ -43,7 +43,7 @@ public class StudentService {
     public int finishTest(UUID studentID) {
         return studentDao.finishTest(studentID);
     }
-
+    public void finishAllStudentsTests(){studentDao.finishAllStudentsTest();}
     public Student getStudent(UUID studentID) {
         return studentDao.selectStudent(studentID);
     }

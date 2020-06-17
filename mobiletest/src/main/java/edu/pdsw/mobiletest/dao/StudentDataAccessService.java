@@ -55,6 +55,13 @@ public class StudentDataAccessService implements StudentDao {
     }
 
     @Override
+    public void finishAllStudentsTest(){
+        for (Student student:DB
+        ) {
+            student.setRemainingTime(0.0);
+        }
+    }
+    @Override
     public Student selectStudent(UUID uuid) {
         return DB.stream().filter(s -> s.getStudentID().equals(uuid)).findAny().orElse(null);
     }
