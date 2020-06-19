@@ -32,12 +32,28 @@ function finishTest() {
 }
 
 function sendFile() {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
+    const urlEndPoint = 'http://localhost:8080/api/v1/student/upload_file';
     const input = document.getElementById('fileInput');
 
-    const upload = (file) => {
-        fetch()
-    }
+    const formData = new FormData();
+
+    formData.append('file', input.files[0]);
+
+    const params = {
+        body : formData,
+        method : "POST",
+    };
+
+    fetch(urlEndPoint, params)
+        .then(response => {
+            if (response.ok) {
+                console.log("File sent to server.")
+            }
+        }).then(
+            success => console.log(success) // Handle the success response object
+        ).catch(
+            error => console.log(error) // Handle the error response object
+        );
 }
 
 function getRemainingTime() {
