@@ -25,8 +25,9 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public int addStudent(Student student) throws StudentAlreadyExistsException {
+    public int addStudent(Student student, String solutionDirectoryPath) throws StudentAlreadyExistsException {
         if (getStudent(student.getStudentID()) == null && getStudentByIndex(student.getStudentIndex()) == null) {
+            studentDao.createStudentsDirectory(student, solutionDirectoryPath);
             return studentDao.insertStudent(student);
         }
         else {
@@ -62,6 +63,6 @@ public class StudentService {
         return studentDao.updateTime(seconds);
     }
 
-    public void saveStudentFile(UUID studentID, MultipartFile file, KnowledgeTest knowledgeTest) { studentDao.saveStudentFile(studentID, file, knowledgeTest);}
+    public void saveStudentFile(String studentIndex, MultipartFile file, String solutionDirectoryPath) { studentDao.saveStudentFile(studentIndex, file, solutionDirectoryPath);}
 
 }

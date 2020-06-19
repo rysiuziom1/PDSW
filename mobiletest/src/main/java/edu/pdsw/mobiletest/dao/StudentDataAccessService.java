@@ -5,6 +5,7 @@ import edu.pdsw.mobiletest.model.Student;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -95,18 +96,29 @@ public class StudentDataAccessService implements StudentDao {
     }
 
     @Override
-    public void saveStudentFile(UUID studentID, MultipartFile file, KnowledgeTest knowledgeTest) {
-        var student = DB.stream().filter(s -> studentID.equals(s.getStudentID())).findAny().orElse(null);
+    public void saveStudentFile(String studentIndex, MultipartFile file, String solutionDirectoryPath) {
+        var student = DB.stream().filter(s -> studentIndex.equals(s.getStudentIndex())).findAny().orElse(null);
 
         Path directoryPath = Paths.get(
-                knowledgeTest.getSolutionsAbsolutePath() + "/" + student.getFirstName() + "_" +
-                        student.getLastName() + "_" + student.getStudentIndex()
+                solutionDirectoryPath + "/" + student.getFirstName() + "_" +
+                        student.getLastName() + "_" + student.getStudentIndex() + "/" + file.getOriginalFilename()
         );
 
         try {
             Files.copy(file.getInputStream(), directoryPath);
         } catch (IOException e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void createStudentsDirectory(Student student, String solutionDirectoryPath) {
+        String directoryName = solutionDirectoryPath + "/" + student.getFirstName() + "_" +
+                student.getLastName() + "_" + student.getStudentIndex();
+
+        File directory = new File(directoryName);
+        if (!directory.exists()){
+            directory.mkdir();
         }
     }
 }

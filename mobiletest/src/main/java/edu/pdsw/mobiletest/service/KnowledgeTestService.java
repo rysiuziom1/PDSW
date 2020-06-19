@@ -44,6 +44,10 @@ public class KnowledgeTestService {
     public String getExercisesPath() {
         return this.knowledgeTestDao.getExercisesDirectoryPath();
     }
+
+    public String getSolutionsPath() {
+        return this.knowledgeTestDao.getSolutionDirectoryPath();
+    }
     
     public double getTotalTime() {
         return this.knowledgeTestDao.getTotalTime();

@@ -13,6 +13,7 @@ public interface KnowledgeTestDao {
     Exercise getRandomExercise();
     double getTotalTime();
     String getExercisesDirectoryPath();
+    String getSolutionDirectoryPath();
 
     List<Exercise> getAllExercises();
 }

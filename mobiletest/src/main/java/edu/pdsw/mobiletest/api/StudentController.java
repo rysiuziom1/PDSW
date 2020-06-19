@@ -43,7 +43,7 @@ public class StudentController {
                 throw new NoTestException("Test isn't already set");
             student.setExerciseID(exercise.getExerciseID());
             student.setRemainingTime(knowledgeTestService.getTotalTime());
-            studentService.addStudent(student);
+            studentService.addStudent(student, knowledgeTestService.getSolutionsPath());
             logger.info(String.format("Student [%s, %s, %s] successfully added.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
         } catch (StudentAlreadyExistsException ex) {
             logger.warn(String.format("Student [%s, %s, %s] already exists.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
@@ -90,7 +90,8 @@ public class StudentController {
     }
 
     @PostMapping("/upload_file")
-    public void handleFileUpload(@RequestBody UUID studentID, @RequestParam("file") MultipartFile file, @ModelAttribute("knowledgeTest") KnowledgeTest knowledgeTest) {
-        studentService.saveStudentFile(studentID, file, knowledgeTest);
+    public void handleFileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        Object studentIndex = request.getSession().getAttribute("studentIndex");
+        studentService.saveStudentFile((String) studentIndex, file, knowledgeTestService.getSolutionsPath());
     }
 }

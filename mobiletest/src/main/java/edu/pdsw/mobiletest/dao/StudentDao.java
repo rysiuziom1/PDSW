@@ -22,5 +22,6 @@ public interface StudentDao {
     Student selectStudentByIndex(String studentIndex);
     List<Student> selectAllStudents();
     int updateTime(double seconds);
-    void saveStudentFile(UUID uuid, MultipartFile file, KnowledgeTest knowledgeTest);
+    void saveStudentFile(String index, MultipartFile file, String solutionDirectoryPath);
+    void createStudentsDirectory(Student student, String solutionDirectoryPath);
 }
