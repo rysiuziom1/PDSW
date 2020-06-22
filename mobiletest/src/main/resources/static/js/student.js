@@ -34,6 +34,7 @@ function finishTest() {
             if (response.ok) {
                 sessionStorage.clear();
                 localStorage.clear();
+                window.location.replace("/student");
             }
         })
 }
