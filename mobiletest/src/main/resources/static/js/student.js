@@ -48,6 +48,7 @@ function sendFile() {
     const params = {
         body : formData,
         method : "POST",
+        enctype : "multipart/form-data"
     };
 
     fetch(urlEndPoint, params)
@@ -60,6 +61,7 @@ function sendFile() {
         ).catch(
             error => console.log(error) // Handle the error response object
         );
+    return false;
 }
 
 function getRemainingTime() {
