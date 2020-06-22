@@ -33,7 +33,7 @@ public class KnowledgeTest {
             return;
         }
         var arrayOfFiles = directory.listFiles();
-        if (arrayOfFiles == null) {
+        if (arrayOfFiles == null || arrayOfFiles.length <= 0) {
 //            logger.warn(directory.getAbsolutePath() + " is empty directory");
             return;
         }
