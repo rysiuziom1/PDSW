@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
+    const urlEndPoint = 'api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
 
     fetch(urlEndPoint)
         .then(response => response.json())
@@ -20,7 +20,7 @@ $(document).ready(function () {
 });
 
 function finishTest() {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/finish_test';
+    const urlEndPoint = 'api/v1/student/finish_test';
 
     const params = {
         headers : { "content-type" : "application/json" },
@@ -40,7 +40,7 @@ function finishTest() {
 }
 
 function getTestFile() {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_file'
+    const urlEndPoint = 'api/v1/student/get_file'
 
     fetch(urlEndPoint).then(response => {
         if (response.ok) {
@@ -62,7 +62,7 @@ function savePdfFile(fileName, buffer) {
 }
 
 function sendFile() {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/upload_file';
+    const urlEndPoint = 'api/v1/student/upload_file';
     const input = document.getElementById('fileInput');
 
     const formData = new FormData();
@@ -99,7 +99,7 @@ function sendFile() {
 }
 
 function getRemainingTime() {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
+    const urlEndPoint = 'api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
 
     fetch(urlEndPoint)
         .then(response => response.json())
@@ -133,7 +133,7 @@ function getRemainingTime() {
 }
 
 function requestTime(){
-     const urlEndPoint = 'http://localhost:8080/api/v1/student/request_time'
+     const urlEndPoint = 'api/v1/student/request_time'
 
          const params = {
              headers : { "content-type" : "application/json" },
