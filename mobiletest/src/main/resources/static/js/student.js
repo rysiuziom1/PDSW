@@ -8,6 +8,8 @@ $(document).ready(function () {
             let remainingTime = data.remainingTime;
             let minutes = Math.floor(remainingTime);
             let seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
+
+
             $('#time').text(minutes + ':' + seconds);
             localStorage.setItem("studentUUID", data.studentID);
         });
@@ -110,6 +112,19 @@ function getRemainingTime() {
                 $("#requestButton").attr('disabled', false);
             }else{
                  $("#requestButton").attr('disabled', true);
+            }
+            console.log(minutes);
+            if(minutes<=5){
+                console.log("dupa")
+                $("#remTime").addClass("red");
+                $("#remTime").removeClass("white");
+                $("#remTime").addClass("white-text");
+                $("#cont").addClass("border-danger");
+            }else{
+                 $("#remTime").removeClass("red");
+                 $("#remTime").removeClass("white-text");
+                $("#remTime").addClass("white");
+                $("#cont").removeClass("border-danger");
             }
             var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
             $('#time').text(minutes + ':' + seconds);

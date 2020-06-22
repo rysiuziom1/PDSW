@@ -34,14 +34,14 @@
 
 <body class="default-color-dark">
     <div class="container-fluid">
-        <form class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
+        <div id="cont" class="col-lg-4 col-md-8 col-sm-12 mx-auto border rounded white">
             <div class="form-row">
                 <div class="col">
                     <img th:src="@{/assets/logo.png}" class="img-fluid" alt="Logo image">
                 </div>
             </div>
             <h2 id="studentData" class="white-text black text-center pt-4 pb-4 col-10 mx-auto"></h2>
-            <h2 class="white-text red darken-4 text-center pt-4 pb-4 col-10 mx-auto">Pozostało: <span id="time"></span></h2>
+            <h2 class=" border border-dark darken-4 text-center pt-4 pb-4 col-10 mx-auto" id="remTime" >Pozostało: <span id="time"></span></h2>
             <div class="text-center">
                 <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text" onclick="getTestFile()">Pobierz plik</button>
                 <button id="requestButton" class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text" onclick="return requestTime()">Dodaj czas</button>
@@ -63,7 +63,7 @@
                 <button class="btn btn-deep-purple btn-md col-10 mx-auto mt-3" onclick="return sendFile()">Wyślij</button>
                 <button class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text" onclick="finishTest()">Zakończ</button>
             </div>
-        </form>
+        </div>
     </div>
 </body>
 <script th:src="@{js/student.js}"></script>
