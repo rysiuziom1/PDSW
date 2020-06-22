@@ -38,7 +38,7 @@ public class StudentDataAccessService implements StudentDao {
         if (student == null) {
             return 0;
         } else {
-            student.setRemainingTime(student.getRemainingTime() + (5.0 / 60.0));
+            student.setRemainingTime(student.getRemainingTime() + 5.0);
         }
         return 1;
     }
@@ -49,7 +49,7 @@ public class StudentDataAccessService implements StudentDao {
         if (student == null) {
             return 0;
         } else {
-            student.setRemainingTime(student.getRemainingTime() - (5.0 / 60.0));
+            student.setRemainingTime(student.getRemainingTime() - 5.0);
         }
         return 1;
     }
