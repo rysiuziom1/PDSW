@@ -24,4 +24,5 @@ public interface StudentDao {
     int updateTime(double seconds);
     void saveStudentFile(String index, MultipartFile file, String solutionDirectoryPath);
     void createStudentsDirectory(Student student, String solutionDirectoryPath);
+    void deleteStudents();
 }

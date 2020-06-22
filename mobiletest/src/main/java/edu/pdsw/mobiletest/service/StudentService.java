@@ -2,13 +2,9 @@ package edu.pdsw.mobiletest.service;
 
 import edu.pdsw.mobiletest.dao.StudentDao;
 import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
-import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.model.Student;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,4 +61,7 @@ public class StudentService {
 
     public void saveStudentFile(String studentIndex, MultipartFile file, String solutionDirectoryPath) { studentDao.saveStudentFile(studentIndex, file, solutionDirectoryPath);}
 
+    public void deleteStudents() {
+        studentDao.deleteStudents();
+    }
 }
