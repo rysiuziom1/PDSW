@@ -98,6 +98,7 @@ public class StudentController {
     public void handleFileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         Object studentIndex = request.getSession().getAttribute("studentIndex");
         studentService.saveStudentFile((String) studentIndex, file, knowledgeTestService.getSolutionsPath());
+        studentService.getStudentByIndex((String) studentIndex).setSolutionSent(true);
     }
 
     @GetMapping(
