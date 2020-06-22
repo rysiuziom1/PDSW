@@ -44,7 +44,29 @@ function getRemainingTime() {
         .then(data => {
             var remainingTime = data.remainingTime
             var minutes = Math.floor(remainingTime)
+            var request = data.requestTime;
+            console.log(request);
+            if(request == false){
+                $("#requestButton").attr('disabled', false);
+            }else{
+                 $("#requestButton").attr('disabled', true);
+            }
             var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
             $('#time').text(minutes + ':' + seconds);
         });
+}
+
+function requestTime(){
+     const urlEndPoint = 'http://localhost:8080/api/v1/student/request_time'
+
+         const params = {
+             headers : { "content-type" : "application/json" },
+             body : JSON.stringify(localStorage.getItem("studentUUID")),
+             method : "POST",
+             mode : "cors",
+         };
+          fetch(urlEndPoint, params)
+                 .then(response => {
+                        $("#requestButton").attr('disabled', true);
+                 })
 }

@@ -60,6 +60,7 @@ public class StudentController {
     @PostMapping("/increase_time")
     public void increaseTime(@RequestBody UUID studentID) {
         studentService.increaseTime(studentID);
+        studentService.getStudent(studentID).setRequestTime(false);
     }
     
     @PostMapping("/decrease_time")
@@ -85,4 +86,9 @@ public class StudentController {
     public Student getStudentByIndex(@RequestParam("index") String studentIndex) {
         return studentService.getStudentByIndex(studentIndex);
     }
+    @PostMapping("/request_time")
+    public void setRequestedTimeTrue(@RequestBody UUID studentID){
+        studentService.getStudent(studentID).setRequestTime(true);
+    }
+
 }
