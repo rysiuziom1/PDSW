@@ -54,6 +54,38 @@ class StudentDaoTest {
 	}
 
 	@Test
+	public void selectStudentTest() {
+		assertNull(studentDao.selectStudent(UUID.randomUUID()));
+		assertTrue(studentDao.selectAllStudents().isEmpty());
+		Student student = new Student(null, "215342", "Jan", "Kowalski");
+		studentDao.insertStudent(student);
+		assertEquals(1, studentDao.selectAllStudents().size());
+		Student dbStudent = studentDao.selectStudentByIndex(student.getStudentIndex());
+		assertNotNull(dbStudent);
+		assertEquals(student.getStudentIndex(), dbStudent.getStudentIndex());
+		assertEquals(student.getFirstName(), dbStudent.getFirstName());
+		assertEquals(student.getLastName(), dbStudent.getLastName());
+	}
+
+	@Test
+	public void finishTestTest() {
+		Student student = new Student(UUID.randomUUID(), "215342", "Jan", "Kowalski");
+		Student student2 = new Student(UUID.randomUUID(), "215343", "Piotr", "Nowak");
+		studentDao.insertStudent(student.getStudentID(), student);
+		studentDao.insertStudent(student2.getStudentID(), student2);
+		studentDao.finishTest(student.getStudentID());
+		assertEquals(0.0, studentDao.selectStudent(student.getStudentID()).getRemainingTime());
+		assertNotEquals(0.0, studentDao.selectStudent(student2.getStudentID()).getRemainingTime());
+	}
+
+	@Test
+	public void finishAllStudentsTestTest() {
+		addManyStudents();
+		studentDao.finishAllStudentsTest();
+		studentDao.selectAllStudents().forEach(student -> assertEquals(0.0, student.getRemainingTime()));
+	}
+
+	@Test
 	public void increaseRemainingTimeTest() {
 		UUID uuid = UUID.randomUUID();
 		Student student = new Student(uuid, "215342", "Jan", "Kowalski");
