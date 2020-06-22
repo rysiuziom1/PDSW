@@ -1,12 +1,15 @@
 package edu.pdsw.mobiletest.dao;
 
-import edu.pdsw.mobiletest.model.KnowledgeTest;
+import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.model.Student;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -125,5 +128,30 @@ public class StudentDataAccessService implements StudentDao {
     @Override
     public void deleteStudents() {
         DB.clear();
+    }
+
+    @Override
+    public byte[] getTestFile(String testFileDirectory) throws IOException, NoTestException {
+        File directory = new File(testFileDirectory);
+
+        File[] files = directory.listFiles(File::isFile);
+
+        if (files == null) {
+            throw new NoTestException("No test files in directory.");
+        }
+
+        long lastModifiedTime = Long.MIN_VALUE;
+        File testFile = null;
+
+        for (File file : files) {
+            if (file.lastModified() > lastModifiedTime) {
+                testFile = file;
+                lastModifiedTime = file.lastModified();
+            }
+        }
+
+        assert testFile != null;
+        InputStream inputStream = new FileInputStream(testFile);
+        return IOUtils.toByteArray(inputStream);
     }
 }
