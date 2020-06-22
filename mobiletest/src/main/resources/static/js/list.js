@@ -1,3 +1,4 @@
+
 function finishTests(){
      const urlEndPoint = 'http://localhost:8080/api/v1/student/finish_tests';
      const params = {
@@ -32,6 +33,7 @@ function changeTime(id, operation, i){
                                }else{
                        console.log(response)
                 }
+
 })}
 function loadList(){
     console.log("TEST");
@@ -47,17 +49,26 @@ function loadList(){
       .then(response => response.json())
       .then(data => {
             var i=0;
+            console.log(data)
             for(var item of data){
+
                 var remainingTime = Math.abs(item.remainingTime);
                 var minutes = Math.floor(remainingTime);
                 var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
-                if(remainingTime==0){
-                    var end= 'red lighten-3'
-                    var state= 'Zakończono'
+                var request = item.requestTime;
+                if(request){
+                    var end= 'red lighten-2'
+                    var state= 'Prośba o dodanie czasu'
                 }else{
-                    var end= ''
-                    var state= 'W trakcie'
+                     if(remainingTime==0){
+                        var end= 'red lighten-3'
+                        var state= 'Zakończono'
+                     }else{
+                        var end= ''
+                        var state= 'W trakcie'
+                     }
                 }
+
             markup=markup+`
                 <tr class="align-middle ${end}">
                     <th scope="row">${item.firstName} ${item.lastName}</th>
