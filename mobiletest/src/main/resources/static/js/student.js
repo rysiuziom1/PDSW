@@ -31,6 +31,10 @@ function finishTest() {
         })
 }
 
+function requestTime() {
+
+}
+
 function sendFile() {
     const urlEndPoint = 'http://localhost:8080/api/v1/student/upload_file';
     const input = document.getElementById('fileInput');
@@ -38,6 +42,8 @@ function sendFile() {
     const formData = new FormData();
 
     formData.append('file', input.files[0]);
+
+    $("#fileList").append('<li class="list-group-item">' + input.files[0].name + '</li>')
 
     const params = {
         body : formData,
