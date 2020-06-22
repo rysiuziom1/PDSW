@@ -1,15 +1,15 @@
 package edu.pdsw.mobiletest.service;
 
 import edu.pdsw.mobiletest.dao.StudentDao;
+import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
 import edu.pdsw.mobiletest.model.Student;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,8 +23,9 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public int addStudent(Student student) throws StudentAlreadyExistsException {
+    public int addStudent(Student student, String solutionDirectoryPath) throws StudentAlreadyExistsException {
         if (getStudent(student.getStudentID()) == null && getStudentByIndex(student.getStudentIndex()) == null) {
+            studentDao.createStudentsDirectory(student, solutionDirectoryPath);
             return studentDao.insertStudent(student);
         }
         else {
@@ -60,4 +61,13 @@ public class StudentService {
         return studentDao.updateTime(seconds);
     }
 
+    public void saveStudentFile(String studentIndex, MultipartFile file, String solutionDirectoryPath) { studentDao.saveStudentFile(studentIndex, file, solutionDirectoryPath);}
+
+    public void deleteStudents() {
+        studentDao.deleteStudents();
+    }
+
+    public byte[] getTestFile(String testFileDirectory) throws IOException, NoTestException {
+        return studentDao.getTestFile(testFileDirectory);
+    }
 }

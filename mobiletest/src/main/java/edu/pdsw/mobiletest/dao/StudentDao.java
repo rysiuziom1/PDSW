@@ -1,7 +1,11 @@
 package edu.pdsw.mobiletest.dao;
 
+import edu.pdsw.mobiletest.exceptions.NoTestException;
+import edu.pdsw.mobiletest.model.KnowledgeTest;
 import edu.pdsw.mobiletest.model.Student;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,4 +25,8 @@ public interface StudentDao {
     Student selectStudentByIndex(String studentIndex);
     List<Student> selectAllStudents();
     int updateTime(double seconds);
+    void saveStudentFile(String index, MultipartFile file, String solutionDirectoryPath);
+    void createStudentsDirectory(Student student, String solutionDirectoryPath);
+    void deleteStudents();
+    byte[] getTestFile(String testFileDirectory) throws IOException, NoTestException;
 }

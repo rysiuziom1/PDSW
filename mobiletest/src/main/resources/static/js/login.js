@@ -1,5 +1,9 @@
 document.getElementById('loginForm').addEventListener('submit', check);
 
+$(document).ready(function() {
+    $("#danger-alert").hide();
+});
+
 function check(event) {
     event.preventDefault();
     console.log("TEST");
@@ -23,11 +27,14 @@ function check(event) {
     fetch(urlEndPoint, params).then(function (response) {
         if (response.ok) {
             console.log("Response from API with code 200");
-            sessionStorage.setItem("studentIndex", studentData.studentIndex);
+            localStorage.setItem("studentIndex", studentData.studentIndex);
             console.log(response.text().then(value => {
                 window.location.href = value;
             }))
         } else {
+            $("#danger-alert").fadeTo(3000, 1000).slideUp(500, function() {
+                $("#danger-alert").slideUp(500);
+            });
             throw new Error("Could not reach the API: " + response.statusText);
         }
     });

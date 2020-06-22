@@ -1,8 +1,18 @@
 package edu.pdsw.mobiletest.dao;
 
+import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.model.Student;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +37,7 @@ public class StudentDataAccessService implements StudentDao {
         if (student == null) {
             return 0;
         } else {
-            student.setRemainingTime(student.getRemainingTime() + 5.0);
+            student.setRemainingTime(student.getRemainingTime() + (5.0 / 60.0));
         }
         return 1;
     }
@@ -38,7 +48,7 @@ public class StudentDataAccessService implements StudentDao {
         if (student == null) {
             return 0;
         } else {
-            student.setRemainingTime(student.getRemainingTime() - 5.0);
+            student.setRemainingTime(student.getRemainingTime() - (5.0 / 60.0));
         }
         return 1;
     }
@@ -86,5 +96,62 @@ public class StudentDataAccessService implements StudentDao {
             }
         });
         return 1;
+    }
+
+    @Override
+    public void saveStudentFile(String studentIndex, MultipartFile file, String solutionDirectoryPath) {
+        var student = DB.stream().filter(s -> studentIndex.equals(s.getStudentIndex())).findAny().orElse(null);
+
+        Path directoryPath = Paths.get(
+                solutionDirectoryPath + "/" + student.getFirstName() + "_" +
+                        student.getLastName() + "_" + student.getStudentIndex() + "/" + file.getOriginalFilename()
+        );
+
+        try {
+            Files.copy(file.getInputStream(), directoryPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void createStudentsDirectory(Student student, String solutionDirectoryPath) {
+        String directoryName = solutionDirectoryPath + "/" + student.getFirstName() + "_" +
+                student.getLastName() + "_" + student.getStudentIndex();
+
+        File directory = new File(directoryName);
+        if (!directory.exists()){
+            directory.mkdir();
+        }
+    }
+
+    @Override
+    public void deleteStudents() {
+        DB.clear();
+    }
+
+    @Override
+    public byte[] getTestFile(String testFileDirectory) throws IOException, NoTestException {
+        File directory = new File(testFileDirectory);
+
+        File[] files = directory.listFiles(File::isFile);
+
+        if (files == null) {
+            throw new NoTestException("No test files in directory.");
+        }
+
+        long lastModifiedTime = Long.MIN_VALUE;
+        File testFile = null;
+
+        for (File file : files) {
+            if (file.lastModified() > lastModifiedTime) {
+                testFile = file;
+                lastModifiedTime = file.lastModified();
+            }
+        }
+
+        assert testFile != null;
+        InputStream inputStream = new FileInputStream(testFile);
+        return IOUtils.toByteArray(inputStream);
     }
 }

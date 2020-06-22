@@ -53,6 +53,13 @@ public class KnowledgeTestDataAccessService implements KnowledgeTestDao {
     }
 
     @Override
+    public String getSolutionDirectoryPath() {
+        if (KT == null)
+            return null;
+        return KT.getSolutionsAbsolutePath();
+    }
+
+    @Override
     public List<Exercise> getAllExercises() {
         if (KT == null)
             return null;

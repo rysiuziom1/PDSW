@@ -43,27 +43,25 @@
             <h2 id="studentData" class="white-text black text-center pt-4 pb-4 col-10 mx-auto"></h2>
             <h2 class="white-text red darken-4 text-center pt-4 pb-4 col-10 mx-auto">Pozostało: <span id="time"></span></h2>
             <div class="text-center">
-                <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text">Pobierz plik</button>
+                <button class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text" onclick="getTestFile()">Pobierz plik</button>
                 <button id="requestButton" class="btn btn-deep-purple btn-md center-block col-5 mx-auto white-text" onclick="return requestTime()">Dodaj czas</button>
             </div>
             <div class="col-10 mx-auto">
                 <div class="form-group row">
                     <div class="custom-file mt-3">
-                        <label class="custom-file-label" for="solutionsFolder">Dodaj plik</label>
-                        <input type="file" class="custom-file-input" webkitdirectory directory multiple
-                            id="solutionsFolder">
+                        <label class="custom-file-label" for="solutionFile">Dodaj plik</label>
+                        <input th:id="fileInput" type="file" class="custom-file-input" accept=".zip,.rar,.7zip"
+                               id="solutionFile">
                     </div>
                 </div>               
             </div>
 
-            <ul class="list-group col-10 mx-auto pr-0">
-                <li class="list-group-item">zad1.zip</li>
-                <li class="list-group-item">zad2.zip</li>
+            <ul id="fileList" class="list-group col-10 mx-auto pr-0">
             </ul>
             
             <div class="text-center">
-                <button class="btn btn-deep-purple btn-md col-10 mx-auto mt-3">Wyślij</button>
-                <button  class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text" onclick="finishTest()">Zakończ</button>
+                <button class="btn btn-deep-purple btn-md col-10 mx-auto mt-3" onclick="return sendFile()">Wyślij</button>
+                <button class="btn red darken-4 btn-md mb-4 col-10 mx-auto white-text" onclick="finishTest()">Zakończ</button>
             </div>
         </form>
     </div>
