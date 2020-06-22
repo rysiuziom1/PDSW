@@ -16,4 +16,5 @@ public interface KnowledgeTestDao {
     String getSolutionDirectoryPath();
 
     List<Exercise> getAllExercises();
+    int deleteTest();
 }

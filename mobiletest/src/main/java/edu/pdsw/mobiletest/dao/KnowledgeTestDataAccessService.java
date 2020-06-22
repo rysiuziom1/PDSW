@@ -65,4 +65,10 @@ public class KnowledgeTestDataAccessService implements KnowledgeTestDao {
             return null;
         return KT.getExercises();
     }
+
+    @Override
+    public int deleteTest() {
+        KT = null;
+        return 1;
+    }
 }
