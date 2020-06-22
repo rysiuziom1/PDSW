@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
+    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
 
     fetch(urlEndPoint)
         .then(response => response.json())
@@ -94,7 +94,7 @@ function sendFile() {
 }
 
 function getRemainingTime() {
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + sessionStorage.getItem("studentIndex");
+    const urlEndPoint = 'http://localhost:8080/api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
 
     fetch(urlEndPoint)
         .then(response => response.json())
