@@ -13,8 +13,10 @@ $(document).ready(function () {
             $('#time').text(minutes + ':' + seconds);
             localStorage.setItem("studentUUID", data.studentID);
         });
-
-    getTestFile();
+    if (localStorage.getItem("isDownloaded") === "false") {
+        localStorage.setItem("isDownloaded", "true");
+        getTestFile();
+    }
 });
 
 function finishTest() {

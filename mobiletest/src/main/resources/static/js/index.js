@@ -22,6 +22,6 @@ function check(event) {
             location.replace(url);
             console.log("git");
         }else{
-        document.getElementById("error").innerHTML=response.body}
+        document.getElementById("error").innerHTML="Folder nie istnieje albo jest pusty"}
     })
 }

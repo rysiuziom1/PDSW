@@ -2,6 +2,7 @@ package edu.pdsw.mobiletest.dao;
 
 import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.model.Student;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,9 +103,12 @@ public class StudentDataAccessService implements StudentDao {
     public void saveStudentFile(String studentIndex, MultipartFile file, String solutionDirectoryPath) {
         var student = DB.stream().filter(s -> studentIndex.equals(s.getStudentIndex())).findAny().orElse(null);
 
+        String fileName = student.getFirstName() + "_" + student.getLastName() + "_" + student.getStudentIndex();
+
         Path directoryPath = Paths.get(
                 solutionDirectoryPath + "/" + student.getFirstName() + "_" +
-                        student.getLastName() + "_" + student.getStudentIndex() + "/" + file.getOriginalFilename()
+                        student.getLastName() + "_" + student.getStudentIndex() + "/" + fileName + "." +
+                        FilenameUtils.getExtension(file.getOriginalFilename())
         );
 
         try {

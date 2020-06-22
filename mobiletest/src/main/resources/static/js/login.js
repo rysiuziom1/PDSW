@@ -28,6 +28,9 @@ function check(event) {
         if (response.ok) {
             console.log("Response from API with code 200");
             localStorage.setItem("studentIndex", studentData.studentIndex);
+            if (localStorage.getItem("isDownloaded") === null) {
+                localStorage.setItem("isDownloaded", "false");
+            }
             console.log(response.text().then(value => {
                 window.location.href = value;
             }))
