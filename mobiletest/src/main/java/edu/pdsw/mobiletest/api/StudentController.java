@@ -1,5 +1,6 @@
 package edu.pdsw.mobiletest.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
 import edu.pdsw.mobiletest.model.KnowledgeTest;
@@ -20,7 +21,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -100,15 +103,13 @@ public class StudentController {
         studentService.saveStudentFile((String) studentIndex, file, knowledgeTestService.getSolutionsPath());
     }
 
-    @GetMapping(
-            value = "/get_file",
-            produces = MediaType.APPLICATION_PDF_VALUE
-    )
-    public @ResponseBody byte[] getTestFile() {
-        byte[] testFile;
+
+    @GetMapping("/get_file")
+    public Map<String, String> getTestFile() {
+        Map<String, String> objectMap;
 
         try {
-            testFile = studentService.getTestFile(knowledgeTestService.getExercisesPath());
+            objectMap = studentService.getTestFile(knowledgeTestService.getExercisesPath());
         } catch (NoTestException e) {
             logger.warn("Error while trying to get a test file, there are no files in test directory.");
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
@@ -117,7 +118,7 @@ public class StudentController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
 
-        return testFile;
+        return objectMap;
     }
 
     @PostMapping("/request_time")

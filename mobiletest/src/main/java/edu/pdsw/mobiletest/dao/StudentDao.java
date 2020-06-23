@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface StudentDao {
@@ -28,5 +29,5 @@ public interface StudentDao {
     void saveStudentFile(String index, MultipartFile file, String solutionDirectoryPath);
     void createStudentsDirectory(Student student, String solutionDirectoryPath);
     void deleteStudents();
-    byte[] getTestFile(String testFileDirectory) throws IOException, NoTestException;
+    Map<String, String> getTestFile(String testFileDirectory) throws IOException, NoTestException;
 }
