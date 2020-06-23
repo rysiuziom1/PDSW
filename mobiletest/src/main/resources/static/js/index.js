@@ -3,7 +3,7 @@ document.getElementById('testForm').addEventListener('submit', check);
 function check(event) {
     event.preventDefault();
     const url = '/students_list';
-    const urlEndPoint = 'http://localhost:8080/api/v1/teacher/test/set'
+    const urlEndPoint = 'api/v1/teacher/test/set'
     const KnowledgeTestData = {
         "totalTestTime" : document.getElementById('startTime').value,
         "solutionsAbsolutePath" : document.getElementById('solutionsFolder').value,
@@ -22,6 +22,6 @@ function check(event) {
             location.replace(url);
             console.log("git");
         }else{
-        document.getElementById("error").innerHTML=response.body}
+        document.getElementById("error").innerHTML="Folder nie istnieje albo jest pusty"}
     })
 }

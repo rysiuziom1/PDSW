@@ -8,8 +8,8 @@ function check(event) {
     event.preventDefault();
     console.log("TEST");
 
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/add';
-    const url = 'http://localhost:8080/login/student';
+    const urlEndPoint = 'api/v1/student/add'
+    const url = '/login/student'
 
     const studentData = {
         "studentIndex": document.getElementById('studentIndex').value,
@@ -28,6 +28,9 @@ function check(event) {
         if (response.ok) {
             console.log("Response from API with code 200");
             localStorage.setItem("studentIndex", studentData.studentIndex);
+            if (localStorage.getItem("isDownloaded") === null) {
+                localStorage.setItem("isDownloaded", "false");
+            }
             console.log(response.text().then(value => {
                 window.location.href = value;
             }))

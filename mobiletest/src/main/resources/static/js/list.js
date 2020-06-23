@@ -1,11 +1,23 @@
+function getIp(){
 
+    const urlEndPoint = 'api/v1/teacher/test/get_ip';
+
+     fetch(urlEndPoint).then(function (response) {
+                        response.text().then(function (text) {
+
+                           document.getElementById('ip').innerHTML="IP kolokwium: "+ text;
+                         });
+                         }
+
+)}
 function finishTests(){
-     const urlEndPoint = 'http://localhost:8080/api/v1/student/finish_tests';
+     const urlEndPoint = 'api/v1/student/finish_tests';
      const params = {
                      headers : { "content-type" : "application/json; charset=UTF-8" },
                      method : "POST",
                      mode : "cors"
                  };
+
      fetch(urlEndPoint, params).then(function (response) {
                          if (response.ok) {
 
@@ -18,7 +30,7 @@ function finishTests(){
 })}
 function changeTime(id, operation, i){
 
-        const urlEndPoint = 'http://localhost:8080/api/v1/student/'+operation;
+        const urlEndPoint = 'api/v1/student/'+operation;
           const params = {
                 headers : { "content-type" : "application/json; charset=UTF-8" },
                 body : JSON.stringify(id),
@@ -38,8 +50,8 @@ function changeTime(id, operation, i){
 function loadList(){
     console.log("TEST");
 
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/get'
-    const url = 'http://localhost:8080/login/student'
+    const urlEndPoint = 'api/v1/student/get'
+    const url = '/login/student'
 
 
 
@@ -56,6 +68,13 @@ function loadList(){
                 var minutes = Math.floor(remainingTime);
                 var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
                 var request = item.requestTime;
+                if(item.solutionSent){
+                    var file= 'fa fa-lg fa-chain green-ic'
+                    var tooltip= 'Rozwiązanie wysłane'
+                }else{
+                    var file= 'fa fa-lg fa-chain-broken red-ic'
+                     var tooltip= 'Rozwiązanie niewysłane'
+                }
                 if(request){
                     var end= 'red lighten-2'
                     var state= 'Prośba o dodanie czasu'
@@ -82,7 +101,7 @@ function loadList(){
                     <td>
                         <span>${state}</span>
                     </td>
-                    <td><i class="fa fa-lg fa-chain-broken red-ic"></i></td>
+                    <td data-placement="top" title="${tooltip}" data-toggle="tooltip"><i class="${file}"></i></td>
                 </tr>
             `;
             document.getElementById('tab').innerHTML=markup;

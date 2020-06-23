@@ -12,6 +12,7 @@ public class Student {
     private double remainingTime;
     private UUID exerciseID;
     private boolean requestTime;
+    private boolean solutionSent;
 
     public Student(@JsonProperty("id") UUID id,
                    @JsonProperty("studentIndex") String studentIndex,
@@ -23,6 +24,7 @@ public class Student {
         this.lastName = lastName;
         this.remainingTime = 90.0;
         this.requestTime = false;
+        this.solutionSent = false;
     }
 
     public UUID getStudentID() {
@@ -63,5 +65,13 @@ public class Student {
 
     public boolean getRequestTime() {
         return requestTime;
+    }
+
+    public boolean getSolutionSent() {
+        return solutionSent;
+    }
+
+    public void setSolutionSent(boolean solutionSended) {
+        this.solutionSent = solutionSended;
     }
 }

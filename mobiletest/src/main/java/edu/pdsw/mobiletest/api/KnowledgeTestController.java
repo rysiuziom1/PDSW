@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +43,16 @@ public class KnowledgeTestController {
     @GetMapping("/get")
     public KnowledgeTest getTest() {
         return this.knowledgeTestService.getTest();
+    }
+
+    @GetMapping("/get_ip")
+    public String getIp(){try(final DatagramSocket socket = new DatagramSocket()){
+        socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+        return socket.getLocalAddress().getHostAddress().toString();
+    } catch (SocketException | UnknownHostException e) {
+        e.printStackTrace();
+    }
+    return "Nie można pobrać adresu";
     }
     
     @GetMapping("/get_exercise")
