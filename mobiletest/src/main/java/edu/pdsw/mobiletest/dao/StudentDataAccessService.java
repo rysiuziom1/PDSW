@@ -162,4 +162,9 @@ public class StudentDataAccessService implements StudentDao {
 
         return objectMap;
     }
+
+    @Override
+    public UUID getExerciseID(String studentIndex) {
+        return selectStudentByIndex(studentIndex).getExerciseID();
+    }
 }

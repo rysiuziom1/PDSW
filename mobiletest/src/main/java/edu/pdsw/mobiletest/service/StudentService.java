@@ -71,4 +71,8 @@ public class StudentService {
     public Map<String, String> getTestFile(String testFileDirectory) throws IOException, NoTestException {
         return studentDao.getTestFile(testFileDirectory);
     }
+
+    public UUID getExerciseID(String studentIndex) {
+        return studentDao.getExerciseID(studentIndex);
+    }
 }

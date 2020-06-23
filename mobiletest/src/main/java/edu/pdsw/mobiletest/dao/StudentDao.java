@@ -30,4 +30,5 @@ public interface StudentDao {
     void createStudentsDirectory(Student student, String solutionDirectoryPath);
     void deleteStudents();
     Map<String, String> getTestFile(String testFileDirectory) throws IOException, NoTestException;
+    UUID getExerciseID(String studentIndex);
 }
