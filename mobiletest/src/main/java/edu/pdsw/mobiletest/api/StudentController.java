@@ -58,16 +58,17 @@ public class StudentController {
             String studentIp = httpServletRequest.getRemoteAddr();
 
             String testIp = knowledgeTestService.getIp();
-            System.out.println(studentIp);
+           
             String [] studentsOctets = studentIp.split("\\.");
             String [] testsOctets = testIp.split("\\.");
-            int lastStudentsOctet = 0;
+            int lastStudentsOctet = 1;
             if(!studentsOctets[studentsOctets.length-1].contains(":1"))
                     lastStudentsOctet = Integer.parseInt(studentsOctets[studentsOctets.length-1]);
 
             int lastTestsOctet = Integer.parseInt(testsOctets[testsOctets.length-1]);
             var exercises = knowledgeTestService.getAllExercises();
             int numberOfExercise = (Math.abs(lastStudentsOctet - lastTestsOctet)%exercises.size());
+
             exercise = exercises.get(numberOfExercise);
             
             student.setExerciseID(exercise.getExerciseID());
