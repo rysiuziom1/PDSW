@@ -58,7 +58,7 @@ public class StudentController {
             String studentIp = httpServletRequest.getRemoteAddr();
 
             String testIp = knowledgeTestService.getIp();
-           
+
             String [] studentsOctets = studentIp.split("\\.");
             String [] testsOctets = testIp.split("\\.");
             int lastStudentsOctet = 1;

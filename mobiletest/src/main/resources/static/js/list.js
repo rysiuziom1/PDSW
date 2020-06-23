@@ -69,10 +69,10 @@ function loadList(){
                 var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
                 var request = item.requestTime;
                 if(item.solutionSent){
-                    var file= 'fa fa-lg fa-chain green-ic'
+                    var file= 'fa fa-2x fa-chain green-ic'
                     var tooltip= 'Rozwiązanie wysłane'
                 }else{
-                    var file= 'fa fa-lg fa-chain-broken red-ic'
+                    var file= 'fa fa-2x fa-chain-broken red-ic'
                      var tooltip= 'Rozwiązanie niewysłane'
                 }
                 if(request){
@@ -94,9 +94,9 @@ function loadList(){
                     <td>${item.studentIndex}</td>
                     <td id='${i}'>${minutes}:${seconds}</td>
                     <td>
-                        <button class="btn btn-md btn-green" onClick="changeTime('${item.studentID}','increase_time', ${i})">+5</button>
-                        <button class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','decrease_time', ${i})">-5</button>
-                        <button class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','finish_test', ${i})"><i class="fa fa-remove"></i></button>
+                        <button data-placement="top" title="Dodaj 5 minut" data-toggle="tooltip" class="btn btn-md btn-green" onClick="changeTime('${item.studentID}','increase_time', ${i})">+5</button>
+                        <button data-placement="top" title="Odejmij 5 minut" data-toggle="tooltip" class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','decrease_time', ${i})">-5</button>
+                        <button data-placement="top" title="Zakończ test studenta" data-toggle="tooltip" class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','finish_test', ${i})"><i class="fa fa-remove"></i></button>
                     </td>
                     <td>
                         <span>${state}</span>

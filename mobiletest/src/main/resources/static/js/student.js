@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const urlEndPoint = 'api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
-
+      $("#danger-alert").hide();
     fetch(urlEndPoint)
         .then(response => response.json())
         .then(data => {
@@ -110,6 +110,9 @@ function sendFile() {
         .then(response => {
             if (response.ok) {
                 console.log("File sent to server.")
+                $("#danger-alert").fadeTo(3000, 1000).slideUp(500, function() {
+                                $("#danger-alert").slideUp(500);
+                            });
                 let currentDate = new Date();
                 let datetime = "added: " + currentDate.getDate() + "/"
                     + (currentDate.getMonth()+1)  + "/"
