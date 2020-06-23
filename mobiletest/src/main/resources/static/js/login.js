@@ -8,8 +8,8 @@ function check(event) {
     event.preventDefault();
     console.log("TEST");
 
-    const urlEndPoint = 'http://localhost:8080/api/v1/student/add'
-    const url = 'http://localhost:8080/login/student'
+    const urlEndPoint = 'http://localhost:8080/api/v1/student/add';
+    const url = 'http://localhost:8080/login/student';
 
     const studentData = {
         "studentIndex": document.getElementById('studentIndex').value,

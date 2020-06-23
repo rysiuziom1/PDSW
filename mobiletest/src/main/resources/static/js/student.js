@@ -39,8 +39,8 @@ function getTestFile() {
 
     fetch(urlEndPoint).then(response => {
         if (response.ok) {
-            response.arrayBuffer().then(function (buffer) {
-                savePdfFile('test-tasks.pdf', buffer);
+            response.json().then(function (data) {
+                savePdfFile(data.filename, data.file);
             });
         }
     })
@@ -48,7 +48,7 @@ function getTestFile() {
 
 function savePdfFile(fileName, buffer) {
     // Object that represents data, in this case pdf
-    let blob = new Blob([buffer], {type: "application/pdf"});
+    let blob = new Blob([atob(buffer)]);
     // Creates link for this object download in html document
     let link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
