@@ -35,7 +35,7 @@ function check(event) {
                 window.location.href = value;
             }))
         } else {
-            $("#danger-alert").fadeTo(3000, 1000).slideUp(500, function() {
+            $("#danger-alert").fadeTo(4000, 1000).slideUp(500, function() {
                 $("#danger-alert").slideUp(500);
             });
             throw new Error("Could not reach the API: " + response.statusText);

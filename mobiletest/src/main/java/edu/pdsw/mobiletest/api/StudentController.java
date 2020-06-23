@@ -49,8 +49,6 @@ public class StudentController {
     @PostMapping("/add")
     public ResponseEntity<String> addStudent(@RequestBody Student student, HttpServletRequest httpServletRequest) {
         try {
-
-
             var exercise = knowledgeTestService.getRandomExercise();
             if (exercise == null)
                 throw new NoTestException("Test isn't already set");
@@ -78,6 +76,11 @@ public class StudentController {
         } catch (StudentAlreadyExistsException ex) {
             logger.warn(String.format("Student [%s, %s, %s] already exists.", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
 //            throw new ResponseStatusException(HttpStatus.OK, ex.getMessage(), ex);
+            var dbStudent = studentService.getStudentByIndex(student.getStudentIndex());
+            if (dbStudent.isLogged()) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), ex);
+            }
+            dbStudent.setLogged(true);
             return new ResponseEntity<>("student?index=" + student.getStudentIndex(), HttpStatus.OK);
         } catch (NoTestException e) {
             logger.warn(String.format("Student [%s, %s, %s] can't be added, because test isn't set yet.",
@@ -104,7 +107,13 @@ public class StudentController {
     @PostMapping("/finish_test")
     public void finishTest(@RequestBody UUID studentID, HttpServletRequest request) {
         studentService.finishTest(studentID);
+        studentService.logout(studentID);
         request.getSession().removeAttribute("studentIndex");
+    }
+
+    @PostMapping("/finish_test_as_teacher")
+    public void finishTest(@RequestBody UUID studentID) {
+        studentService.finishTest(studentID);
     }
 
     @PostMapping("/finish_tests")
@@ -125,8 +134,13 @@ public class StudentController {
     @PostMapping("/upload_file")
     public void handleFileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         Object studentIndex = request.getSession().getAttribute("studentIndex");
-        studentService.saveStudentFile((String) studentIndex, file, knowledgeTestService.getSolutionsPath());
-        studentService.getStudentByIndex((String) studentIndex).setSolutionSent(true);
+        Student student = getStudentByIndex((String) studentIndex);
+        if (!student.isFinishedTest()) {
+            studentService.saveStudentFile((String) studentIndex, file, knowledgeTestService.getSolutionsPath());
+            student.setSolutionSent(true);
+        } else {
+            logger.warn(String.format("Student [%s, %s, %s] already finished test, can't sent solution", student.getFirstName(), student.getLastName(), student.getStudentIndex()));
+        }
     }
 
 
