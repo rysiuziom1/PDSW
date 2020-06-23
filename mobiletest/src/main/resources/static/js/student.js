@@ -1,7 +1,8 @@
 $(document).ready(function () {
     const urlEndPoint = 'api/v1/student/get_student?index=' + localStorage.getItem("studentIndex");
-      $("#danger-alert").hide();
-    fetch(urlEndPoint)
+    $("#danger-alert").hide();
+
+      fetch(urlEndPoint)
         .then(response => response.json())
         .then(data => {
             $('#studentData').text(data.firstName + ' ' + data.lastName + ' ' + data.studentIndex);
@@ -13,6 +14,7 @@ $(document).ready(function () {
             $('#time').text(minutes + ':' + seconds);
             localStorage.setItem("studentUUID", data.studentID);
         });
+
     if (localStorage.getItem("isDownloaded") === "false") {
         localStorage.setItem("isDownloaded", "true");
         getExerciseFile();
