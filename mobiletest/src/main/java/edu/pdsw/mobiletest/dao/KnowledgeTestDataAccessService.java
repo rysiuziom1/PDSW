@@ -71,4 +71,14 @@ public class KnowledgeTestDataAccessService implements KnowledgeTestDao {
         KT = null;
         return 1;
     }
+
+    @Override
+    public String getIp(){
+        return KT.getIp();
+    }
+
+    @Override
+    public void setIp(String ip){
+        KT.setIp(ip);
+    }
 }

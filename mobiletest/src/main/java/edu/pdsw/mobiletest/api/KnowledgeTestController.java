@@ -48,7 +48,9 @@ public class KnowledgeTestController {
     @GetMapping("/get_ip")
     public String getIp(){try(final DatagramSocket socket = new DatagramSocket()){
         socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-        return socket.getLocalAddress().getHostAddress().toString();
+        String ip=socket.getLocalAddress().getHostAddress();
+        this.knowledgeTestService.setIp(ip);
+        return ip;
     } catch (SocketException | UnknownHostException e) {
         e.printStackTrace();
     }

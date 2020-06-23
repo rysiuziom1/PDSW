@@ -25,6 +25,7 @@ public class KnowledgeTestService {
         this.knowledgeTestDao.setKnowledgeTest(knowledgeTest);
     }
 
+
     public KnowledgeTest getTest() {
         return this.knowledgeTestDao.getKnowledgeTest();
     }
@@ -52,4 +53,7 @@ public class KnowledgeTestService {
     public double getTotalTime() {
         return this.knowledgeTestDao.getTotalTime();
     }
+
+    public String getIp(){ return  this.knowledgeTestDao.getIp();}
+    public void setIp(String ip){this.knowledgeTestDao.setIp(ip);}
 }
