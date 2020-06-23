@@ -38,11 +38,29 @@ public class StudentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addStudent(@RequestBody Student student) {
+    public ResponseEntity<String> addStudent(@RequestBody Student student, HttpServletRequest httpServletRequest) {
         try {
+
+
             var exercise = knowledgeTestService.getRandomExercise();
             if (exercise == null)
                 throw new NoTestException("Test isn't already set");
+
+            String studentIp = httpServletRequest.getRemoteAddr();
+
+            String testIp = knowledgeTestService.getIp();
+            System.out.println(studentIp);
+            String [] studentsOctets = studentIp.split("\\.");
+            String [] testsOctets = testIp.split("\\.");
+            int lastStudentsOctet = 0;
+            if(!studentsOctets[studentsOctets.length-1].contains(":1"))
+                    lastStudentsOctet = Integer.parseInt(studentsOctets[studentsOctets.length-1]);
+
+            int lastTestsOctet = Integer.parseInt(testsOctets[testsOctets.length-1]);
+            var exercises = knowledgeTestService.getAllExercises();
+            int numberOfExercise = (Math.abs(lastStudentsOctet - lastTestsOctet)%exercises.size());
+            exercise = exercises.get(numberOfExercise);
+            
             student.setExerciseID(exercise.getExerciseID());
             student.setRemainingTime(knowledgeTestService.getTotalTime());
             studentService.addStudent(student, knowledgeTestService.getSolutionsPath());

@@ -14,6 +14,8 @@ public interface KnowledgeTestDao {
     double getTotalTime();
     String getExercisesDirectoryPath();
     String getSolutionDirectoryPath();
+    String getIp();
+    void setIp(String ip);
 
     List<Exercise> getAllExercises();
     int deleteTest();

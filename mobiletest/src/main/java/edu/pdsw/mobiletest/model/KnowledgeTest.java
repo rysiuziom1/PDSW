@@ -14,6 +14,7 @@ public class KnowledgeTest {
     private final String solutionsAbsolutePath;
     private final String exercisesAbsolutePath;
     private List<Exercise> exercises;
+    private String ip;
 
     private Logger logger = LoggerFactory.getLogger(KnowledgeTest.class);
 
@@ -41,7 +42,7 @@ public class KnowledgeTest {
         var listOfFiles = Arrays.asList(arrayOfFiles);
         listOfFiles.forEach(ex -> {
             if (ex.isFile()) {
-                exercises.add(new Exercise(ex.getAbsolutePath()));
+               exercises.add(new Exercise(ex.getAbsolutePath()));
             }
         });
 //        logger.info("Exercises directory path: " + directory.getAbsolutePath());
@@ -59,7 +60,9 @@ public class KnowledgeTest {
         return exercisesAbsolutePath;
     }
 
-    public List<Exercise> getExercises() {
-        return exercises;
-    }
+    public List<Exercise> getExercises() { return exercises; }
+
+    public String getIp(){ return ip; }
+
+    public void setIp(String ip) { this.ip = ip; }
 }

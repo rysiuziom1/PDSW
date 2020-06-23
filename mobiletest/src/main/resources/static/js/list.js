@@ -5,7 +5,7 @@ function getIp(){
      fetch(urlEndPoint).then(function (response) {
                         response.text().then(function (text) {
 
-                           document.getElementById('ip').innerHTML="IP kolokwium: "+ text;
+                           document.getElementById('ip').innerHTML="IP kolokwium: <b>"+ text+"</b>";
                          });
                          }
 

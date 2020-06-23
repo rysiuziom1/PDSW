@@ -25,6 +25,7 @@ public class Student {
         this.remainingTime = 90.0;
         this.requestTime = false;
         this.solutionSent = false;
+
     }
 
     public UUID getStudentID() {
