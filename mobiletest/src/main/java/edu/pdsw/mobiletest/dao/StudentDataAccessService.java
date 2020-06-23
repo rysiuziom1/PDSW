@@ -14,9 +14,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Repository("studentRep")
 public class StudentDataAccessService implements StudentDao {
@@ -135,7 +133,7 @@ public class StudentDataAccessService implements StudentDao {
     }
 
     @Override
-    public byte[] getTestFile(String testFileDirectory) throws IOException, NoTestException {
+    public Map<String, String> getTestFile(String testFileDirectory) throws IOException, NoTestException {
         File directory = new File(testFileDirectory);
 
         File[] files = directory.listFiles(File::isFile);
@@ -156,6 +154,17 @@ public class StudentDataAccessService implements StudentDao {
 
         assert testFile != null;
         InputStream inputStream = new FileInputStream(testFile);
-        return IOUtils.toByteArray(inputStream);
+        byte[] fileBytes = IOUtils.toByteArray(inputStream);
+
+        HashMap<String, String> objectMap = new HashMap<>();
+        objectMap.put("filename", testFile.getName());
+        objectMap.put("file", Base64.getEncoder().encodeToString(fileBytes));
+
+        return objectMap;
+    }
+
+    @Override
+    public UUID getExerciseID(String studentIndex) {
+        return selectStudentByIndex(studentIndex).getExerciseID();
     }
 }

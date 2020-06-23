@@ -15,7 +15,7 @@ $(document).ready(function () {
         });
     if (localStorage.getItem("isDownloaded") === "false") {
         localStorage.setItem("isDownloaded", "true");
-        getTestFile();
+        getExerciseFile();
     }
 });
 
@@ -39,13 +39,43 @@ function finishTest() {
         })
 }
 
+function getExerciseFile() {
+    const urlEndPoint = 'api/v1/student/get_exercise?index=' + localStorage.getItem("studentIndex");
+    let contentType;
+    let fileName;
+    fetch(urlEndPoint).then(response => {
+        if (response.ok) {
+            let cd = response.headers.get("content-disposition");
+            contentType = response.headers.get("content-type");
+            let regex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            let match = regex.exec(cd);
+            fileName = match[1]
+            return response.blob();
+        }
+    }).then(data => {
+        try {
+            let blob = new Blob([data], {type: contentType});
+            console.log(data);
+            let objectUrl = URL.createObjectURL(blob);
+            let link = document.createElement('a');
+            link.download = fileName;
+            link.href = objectUrl;
+            link.target = "_blank";
+            link.click();
+        } catch (e) {
+            console.log("Save Blob method failed with the following exception.");
+            console.log(e);
+        }
+    })
+}
+
 function getTestFile() {
     const urlEndPoint = 'api/v1/student/get_file'
 
     fetch(urlEndPoint).then(response => {
         if (response.ok) {
-            response.arrayBuffer().then(function (buffer) {
-                savePdfFile('test-tasks.pdf', buffer);
+            response.json().then(function (data) {
+                savePdfFile(data.filename, data.file);
             });
         }
     })
@@ -53,7 +83,7 @@ function getTestFile() {
 
 function savePdfFile(fileName, buffer) {
     // Object that represents data, in this case pdf
-    let blob = new Blob([buffer], {type: "application/pdf"});
+    let blob = new Blob([atob(buffer)]);
     // Creates link for this object download in html document
     let link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
@@ -108,15 +138,12 @@ function getRemainingTime() {
             var remainingTime = data.remainingTime
             var minutes = Math.floor(remainingTime)
             var request = data.requestTime;
-            console.log(request);
             if(request == false){
                 $("#requestButton").attr('disabled', false);
             }else{
                  $("#requestButton").attr('disabled', true);
             }
-            console.log(minutes);
             if(minutes<=5){
-                console.log("dupa")
                 $("#remTime").addClass("red");
                 $("#remTime").removeClass("white");
                 $("#remTime").addClass("white-text");

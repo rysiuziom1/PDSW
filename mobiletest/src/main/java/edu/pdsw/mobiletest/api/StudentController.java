@@ -1,5 +1,6 @@
 package edu.pdsw.mobiletest.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.pdsw.mobiletest.exceptions.NoTestException;
 import edu.pdsw.mobiletest.exceptions.StudentAlreadyExistsException;
 import edu.pdsw.mobiletest.model.KnowledgeTest;
@@ -9,6 +10,9 @@ import edu.pdsw.mobiletest.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +24,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -119,15 +128,13 @@ public class StudentController {
         studentService.getStudentByIndex((String) studentIndex).setSolutionSent(true);
     }
 
-    @GetMapping(
-            value = "/get_file",
-            produces = MediaType.APPLICATION_PDF_VALUE
-    )
-    public @ResponseBody byte[] getTestFile() {
-        byte[] testFile;
+
+    @GetMapping("/get_file")
+    public Map<String, String> getTestFile() {
+        Map<String, String> objectMap;
 
         try {
-            testFile = studentService.getTestFile(knowledgeTestService.getExercisesPath());
+            objectMap = studentService.getTestFile(knowledgeTestService.getExercisesPath());
         } catch (NoTestException e) {
             logger.warn("Error while trying to get a test file, there are no files in test directory.");
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
@@ -136,7 +143,7 @@ public class StudentController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
 
-        return testFile;
+        return objectMap;
     }
 
     @PostMapping("/request_time")
@@ -144,4 +151,19 @@ public class StudentController {
         studentService.getStudent(studentID).setRequestTime(true);
     }
 
+    @GetMapping("/get_exercise")
+    public ResponseEntity getExercise(@RequestParam("index") String studentIndex) {
+        UUID exerciseID = studentService.getExerciseID(studentIndex);
+        Path exercisePath = Paths.get(knowledgeTestService.getExercise(exerciseID).getExerciseAbsolutePath());
+        Resource resource = null;
+        try {
+            resource = new UrlResource(exercisePath.toUri());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + resource.getFilename())
+                .body(resource);
+    }
 }
