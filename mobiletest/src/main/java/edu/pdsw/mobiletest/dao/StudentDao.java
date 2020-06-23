@@ -31,4 +31,6 @@ public interface StudentDao {
     void deleteStudents();
     Map<String, String> getTestFile(String testFileDirectory) throws IOException, NoTestException;
     UUID getExerciseID(String studentIndex);
+
+    void logout(UUID studentID);
 }

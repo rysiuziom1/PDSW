@@ -96,7 +96,7 @@ function loadList(){
                     <td>
                         <button data-placement="top" title="Dodaj 5 minut" data-toggle="tooltip" class="btn btn-md btn-green" onClick="changeTime('${item.studentID}','increase_time', ${i})">+5</button>
                         <button data-placement="top" title="Odejmij 5 minut" data-toggle="tooltip" class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','decrease_time', ${i})">-5</button>
-                        <button data-placement="top" title="Zakończ test studenta" data-toggle="tooltip" class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','finish_test', ${i})"><i class="fa fa-remove"></i></button>
+                        <button data-placement="top" title="Zakończ test studenta" data-toggle="tooltip" class="btn btn-md btn-red" onClick="changeTime('${item.studentID}','finish_test_as_teacher', ${i})"><i class="fa fa-remove"></i></button>
                     </td>
                     <td>
                         <span>${state}</span>

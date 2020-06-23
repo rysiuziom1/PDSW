@@ -159,6 +159,11 @@ function getRemainingTime() {
             }
             var seconds = ("0" + Math.round((remainingTime - minutes) * (6. / 10.) * 100)).slice(-2);
             $('#time').text(minutes + ':' + seconds);
+            if (remainingTime <= 0.0) {
+                $("#sentButton").attr('disabled', true);
+            } else {
+                $("#sentButton").attr('disabled', false);
+            }
         });
 }
 

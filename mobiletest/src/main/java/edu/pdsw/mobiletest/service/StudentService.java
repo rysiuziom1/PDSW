@@ -75,4 +75,8 @@ public class StudentService {
     public UUID getExerciseID(String studentIndex) {
         return studentDao.getExerciseID(studentIndex);
     }
+
+    public void logout(UUID studentID) {
+        studentDao.logout(studentID);
+    }
 }

@@ -60,6 +60,7 @@ public class StudentDataAccessService implements StudentDao {
             return 0;
         } else {
             student.setRemainingTime(0.0);
+            student.setFinishedTest(true);
         }
         return 1;
     }
@@ -69,6 +70,7 @@ public class StudentDataAccessService implements StudentDao {
         for (Student student:DB
         ) {
             student.setRemainingTime(0.0);
+            student.setFinishedTest(true);
         }
     }
     @Override
@@ -91,8 +93,12 @@ public class StudentDataAccessService implements StudentDao {
         DB.forEach(student -> {
             if (student.getRemainingTime() > 0) {
                 student.setRemainingTime(student.getRemainingTime() + (seconds * (1. / 60.)));
-            } else if (student.getRemainingTime() < 0) {
-                student.setRemainingTime(0.0);
+                student.setFinishedTest(false);
+            } else if (student.getRemainingTime() <= 0) {
+                if (student.getRemainingTime() < 0) {
+                    student.setRemainingTime(0.0);
+                }
+                student.setFinishedTest(true);
             }
         });
         return 1;
@@ -167,5 +173,13 @@ public class StudentDataAccessService implements StudentDao {
     @Override
     public UUID getExerciseID(String studentIndex) {
         return selectStudentByIndex(studentIndex).getExerciseID();
+    }
+
+    @Override
+    public void logout(UUID studentID) {
+        var student = DB.stream().filter(s -> studentID.equals(s.getStudentID())).findAny().orElse(null);
+        if (student != null) {
+            student.setLogged(false);
+        }
     }
 }
