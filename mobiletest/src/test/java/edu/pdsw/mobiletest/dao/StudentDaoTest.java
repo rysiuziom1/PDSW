@@ -94,7 +94,7 @@ class StudentDaoTest {
 		studentDao.insertStudent(uuid, student);
 		studentDao.increaseTime(uuid);
 		Student dbStudent = studentDao.selectStudent(uuid);
-		assertEquals(45.083, dbStudent.getRemainingTime(), 0.001);
+		assertEquals(50.0, dbStudent.getRemainingTime(), 0.001);
 	}
 
 	@Test
@@ -105,7 +105,7 @@ class StudentDaoTest {
 		studentDao.insertStudent(uuid, student);
 		studentDao.decreaseTime(uuid);
 		Student dbStudent = studentDao.selectStudent(uuid);
-		assertEquals(44.916, dbStudent.getRemainingTime(), 0.001);
+		assertEquals(40.0, dbStudent.getRemainingTime(), 0.001);
 	}
 
 	@Test
